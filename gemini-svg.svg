@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Gradiente de Fundo Premium -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#022c22" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+
+    <!-- Gradiente Verde Esmeralda FinTech -->
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <!-- Brilho Suave -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <!-- Fundo com Cantos Arredondados estilo App Icon (Squircle) -->
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)" />
+  
+  <!-- Borda Sutil de Destaque -->
+  <rect width="508" height="508" x="2" y="2" rx="113" fill="none" stroke="rgba(52, 211, 153, 0.2)" stroke-width="4" />
+
+  <!-- Corpo Principal da Carteira / Símbolo Financeiro -->
+  <g filter="url(#shadow)">
+    <!-- Base da Carteira -->
+    <rect x="106" y="156" width="300" height="210" rx="36" fill="url(#emeraldGrad)" />
+
+    <!-- Dobra Superior / Aba -->
+    <path d="M106 196 C106 170, 126 156, 150 156 L362 156 C386 156, 406 170, 406 196 L406 226 C380 226, 320 236, 256 236 C192 236, 132 226, 106 226 Z" fill="#10b981" opacity="0.9" />
+
+    <!-- Fecho da Carteira -->
+    <rect x="290" y="226" width="126" height="70" rx="20" fill="#064e3b" stroke="#34d399" stroke-width="3" />
+    
+    <!-- Moeda / Cifrão no Fecho -->
+    <circle cx="353" cy="261" r="16" fill="#34d399" filter="url(#glow)" />
+    <circle cx="353" cy="261" r="8" fill="#022c22" />
+
+    <!-- Linhas de Fluxo Ascendente (Crescimento / Lucro) -->
+    <path d="M156 310 L200 265 L235 285 L285 235" fill="none" stroke="#ecfdf5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
+    <polyline points="265,235 285,235 285,255" fill="none" stroke="#ecfdf5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
+  </g>
+</svg>
