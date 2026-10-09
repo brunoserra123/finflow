@@ -24,6 +24,23 @@
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between p-3 sm:p-6 lg:p-8">
+
+  <!-- Banner Flutuante de Atualização Disponível -->
+  <div id="updateBanner" class="hidden fixed top-3 left-3 right-3 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-slate-900 border border-emerald-500/50 shadow-2xl p-4 rounded-2xl flex items-center justify-between gap-3 animate-bounce">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+        <i class="fa-solid fa-arrows-rotate fa-spin"></i>
+      </div>
+      <div>
+        <p class="text-xs font-bold text-white">Nova versão disponível (<span id="novaVersaoNum">v1.0.1</span>)!</p>
+        <p class="text-[11px] text-slate-400" id="novaVersaoNotas">Toque para atualizar a aplicação.</p>
+      </div>
+    </div>
+    <button onclick="aplicarAtualizacao()" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold rounded-lg transition-all shrink-0">
+      Atualizar
+    </button>
+  </div>
+
   <div class="max-w-4xl mx-auto w-full flex-1">
     
     <!-- Cabeçalho -->
@@ -33,10 +50,381 @@
           <i class="fa-solid fa-wallet"></i>
         </div>
         <div>
-          <h1 class="font-bold text-lg sm:text-xl text-white">Registo de Finanças</h1>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-lg sm:text-xl text-white">Registo de Finanças</h1>
+            <span id="badgeVersaoAtual" class="text-[10px] text-slate-500 font-mono">v1.0.0</span>
+          </div>
           <p class="text-xs text-slate-400">Google Folhas de Cálculo Conectado</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
+        <button onclick="verificarAtualizacaoManual()" title="Verificar atualizações" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-all text-xs">
+          <i id="syncIcon" class="fa-solid fa-rotate"></i>
+        </button>
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Online
+        </span>
+      </div>
+    </header>
+
+    <!-- Grid Adaptável -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      
+      <!-- Coluna 1: Campos Primários -->
+      <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+        
+        <!-- Toggle Tipo -->
+        <div class="grid grid-cols-2 p-1 bg-slate-950 rounded-xl border border-slate-800 text-sm font-semibold">
+          <button type="button" id="btnDespesa" onclick="setTipo('Despesa')" class="py-2.5 rounded-lg bg-rose-500 text-white transition-all flex items-center justify-center gap-2 shadow-sm">
+            <i class="fa-solid fa-arrow-down"></i> Despesa
+          </button>
+          <button type="button" id="btnReceita" onclick="setTipo('Receita')" class="py-2.5 rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-up"></i> Receita
+          </button>
+        </div>
+
+        <!-- Campo Valor -->
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Valor</label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-slate-400">R$</span>
+            <input type="number" step="0.01" id="valor" inputmode="decimal" placeholder="0,00" autofocus
+              class="w-full pl-14 pr-4 py-3.5 bg-slate-950 border border-slate-800 rounded-xl text-3xl font-extrabold text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
+          </div>
+        </div>
+
+        <!-- Campo Descrição com Autocorreção e Sugestões -->
+        <div class="relative">
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold flex items-center justify-between">
+            <span>Descrição</span>
+            <span class="text-[10px] text-emerald-400 lowercase font-normal">correção automática</span>
+          </label>
+          <div class="relative">
+            <input type="text" id="descricao" autocomplete="off" placeholder="Ex: cafe, almoco, guardar..." 
+              class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-sm" />
+            <span id="badgeSugestao" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30"></span>
+          </div>
+
+          <!-- Menu de Sugestões -->
+          <div id="listaSugestoes" class="hidden absolute left-0 right-0 top-full mt-1 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-800/60 max-h-48 overflow-y-auto"></div>
+        </div>
+
+        <!-- Seletor de Categoria -->
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-semibold">Categoria</label>
+          <div class="grid grid-cols-3 gap-2 text-xs" id="categoriasGrid"></div>
+        </div>
+      </div>
+
+      <!-- Coluna 2: Detalhes e Confirmação -->
+      <div class="space-y-4 flex flex-col justify-between">
+        <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+          
+          <!-- Forma de Pagamento -->
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Forma de Pagamento</label>
+            <div class="grid grid-cols-3 gap-2 text-xs mb-2">
+              <button type="button" onclick="setPagamento('Pix')" class="py-2 px-1 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 font-medium active:scale-95 transition-all text-center">Pix</button>
+              <button type="button" onclick="setPagamento('Crédito')" class="py-2 px-1 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 font-medium active:scale-95 transition-all text-center">Crédito</button>
+              <button type="button" onclick="setPagamento('Débito')" class="py-2 px-1 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 font-medium active:scale-95 transition-all text-center">Débito</button>
+            </div>
+            <select id="pagamento" class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+              <option value="Pix">Pix</option>
+              <option value="Cartão de Crédito">Cartão de Crédito</option>
+              <option value="Cartão de Débito">Cartão de Débito</option>
+              <option value="Transferência">Transferência</option>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Boleto">Boleto</option>
+            </select>
+          </div>
+
+          <!-- Observações -->
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Observações (Opcional)</label>
+            <input type="text" id="observacoes" placeholder="Ex: Parcelado 1/3, Caixinha Nubank..." 
+              class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-sm" />
+          </div>
+
+          <!-- Botão de Gravação -->
+          <button type="button" id="btnRegistrar" onclick="enviarRegistro()" 
+            class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-bold rounded-xl text-base flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all cursor-pointer">
+            <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
+            <span>Lançar na Planilha</span>
+          </button>
+        </div>
+
+        <!-- Box de Retorno e Estado -->
+        <div id="statusContainer" class="p-4 rounded-xl border border-slate-800 bg-slate-900/50 text-xs text-slate-400 flex items-center gap-3">
+          <i class="fa-solid fa-circle-info text-slate-500 text-base"></i>
+          <span id="statusTexto">Pronto para novo lançamento.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configurações de Versão e Webhook
+    const VERSAO_LOCAL = "1.0.0";
+    const URL_VERSAO_REMOTA = "version.json";
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyss9qOeU3riaOeYpkkA7sa4IOvjXo9mB8xJ6EenjTUvf-YpiHt_o-3HBJ1pnTLfQg/exec";
+
+    document.getElementById("badgeVersaoAtual").innerText = `v${VERSAO_LOCAL}`;
+
+    // --- SISTEMA DE VERIFICAÇÃO DE ATUALIZAÇÃO ---
+    async function verificarVersao(manual = false) {
+      const syncIcon = document.getElementById("syncIcon");
+      if (manual && syncIcon) syncIcon.classList.add("fa-spin");
+
+      try {
+        // Cache buster com timestamp para garantir que não pega versão guardada em cache
+        const res = await fetch(`${URL_VERSAO_REMOTA}?_t=${Date.now()}`);
+        if (!res.ok) return;
+
+        const info = await res.json();
+        if (info && info.version && info.version !== VERSAO_LOCAL) {
+          document.getElementById("novaVersaoNum").innerText = `v${info.version}`;
+          if (info.notes) document.getElementById("novaVersaoNotas").innerText = info.notes;
+          document.getElementById("updateBanner").classList.remove("hidden");
+        } else if (manual) {
+          const statusTexto = document.getElementById("statusTexto");
+          statusTexto.innerText = `Você já está na versão mais recente (v${VERSAO_LOCAL}).`;
+        }
+      } catch (e) {
+        console.log("Erro ao verificar versão:", e);
+      } finally {
+        if (manual && syncIcon) syncIcon.classList.remove("fa-spin");
+      }
+    }
+
+    function aplicarAtualizacao() {
+      // Força a recarga ignorando caches
+      window.location.reload(true);
+    }
+
+    function verificarAtualizacaoManual() {
+      verificarVersao(true);
+    }
+
+    // Dicionário com termos comuns e autocorreção
+    const DICIONARIO = [
+      { termo: "Dinheiro Guardado", cat: "Dinheiro Guardado" },
+      { termo: "Poupança", cat: "Dinheiro Guardado" },
+      { termo: "Investimento", cat: "Dinheiro Guardado" },
+      { termo: "Reserva de Emergência", cat: "Dinheiro Guardado" },
+      { termo: "Caixinha", cat: "Dinheiro Guardado" },
+      { termo: "CDB", cat: "Dinheiro Guardado" },
+      { termo: "Ações", cat: "Dinheiro Guardado" },
+      { termo: "Café", cat: "Alimentação" },
+      { termo: "Almoço", cat: "Alimentação" },
+      { termo: "Jantar", cat: "Alimentação" },
+      { termo: "Padaria", cat: "Alimentação" },
+      { termo: "Mercado", cat: "Alimentação" },
+      { termo: "Supermercado", cat: "Alimentação" },
+      { termo: "Lanche", cat: "Alimentação" },
+      { termo: "Açaí", cat: "Alimentação" },
+      { termo: "Água", cat: "Alimentação" },
+      { termo: "Pão de Queijo", cat: "Alimentação" },
+      { termo: "Restaurante", cat: "Alimentação" },
+      { termo: "Gasolina", cat: "Transporte" },
+      { termo: "Combustível", cat: "Transporte" },
+      { termo: "Uber", cat: "Transporte" },
+      { termo: "Estacionamento", cat: "Transporte" },
+      { termo: "Cinema", cat: "Lazer" },
+      { termo: "Jogos", cat: "Lazer" },
+      { termo: "Steam", cat: "Lazer" },
+      { termo: "Aluguel", cat: "Moradia" },
+      { termo: "Condomínio", cat: "Moradia" },
+      { termo: "Energia / Luz", cat: "Moradia" },
+      { termo: "Farmácia", cat: "Saúde" },
+      { termo: "Remédio", cat: "Saúde" },
+      { termo: "Roupas", cat: "Compras" },
+      { termo: "Amazon", cat: "Compras" },
+      { termo: "Shopee", cat: "Compras" },
+      { termo: "Netflix", cat: "Assinaturas" },
+      { termo: "Spotify", cat: "Assinaturas" }
+    ];
+
+    const CATEGORIAS = [
+      { id: "Alimentação", icon: "fa-utensils" },
+      { id: "Transporte", icon: "fa-car" },
+      { id: "Dinheiro Guardado", icon: "fa-piggy-bank" },
+      { id: "Lazer", icon: "fa-gamepad" },
+      { id: "Moradia", icon: "fa-house" },
+      { id: "Saúde", icon: "fa-heart-pulse" },
+      { id: "Compras", icon: "fa-bag-shopping" },
+      { id: "Assinaturas", icon: "fa-receipt" },
+      { id: "Outros", icon: "fa-ellipsis" }
+    ];
+
+    let categoriaSelecionada = "Alimentação";
+    let tipoAtual = "Despesa";
+
+    function normalizar(texto) {
+      return (texto || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    }
+
+    function renderCategorias() {
+      const container = document.getElementById("categoriasGrid");
+      container.innerHTML = CATEGORIAS.map(cat => `
+        <button type="button" onclick="setCategoria('${cat.id}')" 
+          class="flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all ${
+            categoriaSelecionada === cat.id 
+              ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 font-semibold shadow-sm' 
+              : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+          }">
+          <i class="fa-solid ${cat.icon} mb-1.5 text-sm"></i>
+          <span class="truncate w-full text-[11px] text-center">${cat.id}</span>
+        </button>
+      `).join('');
+    }
+
+    function setCategoria(cat) {
+      categoriaSelecionada = cat;
+      renderCategorias();
+    }
+
+    function setTipo(tipo) {
+      tipoAtual = tipo;
+      const btnD = document.getElementById("btnDespesa");
+      const btnR = document.getElementById("btnReceita");
+      if (tipo === "Despesa") {
+        btnD.className = "py-2.5 rounded-lg bg-rose-500 text-white transition-all flex items-center justify-center gap-2 shadow-sm";
+        btnR.className = "py-2.5 rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2";
+      } else {
+        btnR.className = "py-2.5 rounded-lg bg-emerald-500 text-white transition-all flex items-center justify-center gap-2 shadow-sm";
+        btnD.className = "py-2.5 rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2";
+      }
+    }
+
+    function setPagamento(forma) {
+      const select = document.getElementById("pagamento");
+      for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].text.includes(forma)) {
+          select.selectedIndex = i;
+          break;
+        }
+      }
+    }
+
+    const descInput = document.getElementById("descricao");
+    const listaSugestoes = document.getElementById("listaSugestoes");
+    const badgeSugestao = document.getElementById("badgeSugestao");
+
+    descInput.addEventListener("input", () => {
+      const valor = descInput.value;
+      const valorNorm = normalizar(valor);
+
+      if (!valorNorm) {
+        listaSugestoes.classList.add("hidden");
+        badgeSugestao.classList.add("hidden");
+        return;
+      }
+
+      const matches = DICIONARIO.filter(item => normalizar(item.termo).includes(valorNorm));
+
+      if (matches.length > 0) {
+        badgeSugestao.innerText = matches[0].termo;
+        badgeSugestao.classList.remove("hidden");
+
+        listaSugestoes.innerHTML = matches.slice(0, 5).map(item => `
+          <div onclick="aplicarSugestao('${item.termo}', '${item.cat}')" 
+               class="px-4 py-2.5 hover:bg-slate-800 flex items-center justify-between cursor-pointer transition-colors text-sm">
+            <span class="font-medium text-white">${item.termo}</span>
+            <span class="text-xs text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${item.cat}</span>
+          </div>
+        `).join('');
+        listaSugestoes.classList.remove("hidden");
+      } else {
+        listaSugestoes.classList.add("hidden");
+        badgeSugestao.classList.add("hidden");
+      }
+    });
+
+    function aplicarSugestao(termo, categoria) {
+      descInput.value = termo;
+      if (categoria) setCategoria(categoria);
+      listaSugestoes.classList.add("hidden");
+      badgeSugestao.classList.add("hidden");
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!descInput.contains(e.target) && !listaSugestoes.contains(e.target)) {
+        listaSugestoes.classList.add("hidden");
+      }
+    });
+
+    async function enviarRegistro() {
+      const valorInput = document.getElementById("valor");
+      const obsInput = document.getElementById("observacoes");
+      const pagInput = document.getElementById("pagamento");
+      const btn = document.getElementById("btnRegistrar");
+      const statusContainer = document.getElementById("statusContainer");
+      const statusTexto = document.getElementById("statusTexto");
+
+      const valorNorm = normalizar(descInput.value);
+      const correcaoExata = DICIONARIO.find(item => normalizar(item.termo) === valorNorm);
+      if (correcaoExata) {
+        descInput.value = correcaoExata.termo;
+        setCategoria(correcaoExata.cat);
+      }
+
+      const valorNum = parseFloat(valorInput.value);
+      if (isNaN(valorNum) || valorNum <= 0) {
+        valorInput.focus();
+        statusTexto.innerText = "Por favor, introduza um valor válido superior a zero.";
+        statusContainer.className = "p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-400 flex items-center gap-3";
+        return;
+      }
+
+      btn.disabled = true;
+      btn.classList.add("opacity-50", "pointer-events-none");
+      statusContainer.className = "p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-xs text-amber-300 flex items-center gap-3";
+      statusTexto.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> A registar na folha de cálculo...`;
+
+      const payload = {
+        data: new Date().toLocaleString("pt-BR"),
+        valor: valorNum,
+        descricao: descInput.value.trim() || categoriaSelecionada,
+        categoria: categoriaSelecionada,
+        tipo: tipoAtual,
+        pagamento: pagInput.value,
+        observacoes: obsInput.value.trim()
+      };
+
+      try {
+        await fetch(WEBAPP_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        statusContainer.className = "p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-300 flex items-center gap-3";
+        statusTexto.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Sucesso! Lançado R$ ${valorNum.toFixed(2)} em ${payload.descricao}.`;
+
+        valorInput.value = "";
+        descInput.value = "";
+        obsInput.value = "";
+        listaSugestoes.classList.add("hidden");
+        badgeSugestao.classList.add("hidden");
+        valorInput.focus();
+      } catch (err) {
+        statusContainer.className = "p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-400 flex items-center gap-3";
+        statusTexto.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Falha no envio: ${err.message}`;
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove("opacity-50", "pointer-events-none");
+      }
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && (document.activeElement.id === "valor" || document.activeElement.id === "descricao")) {
+        enviarRegistro();
+      }
+    });
+
+    renderCategorias();
+    verificarVersao(); // Verifica automaticamente assim que abre o app
+  </script>
+</body>
+</html>
