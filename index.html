@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>FinFlow - Registo de Gastos</title>
   
-  <!-- Ícone de Aplicação e Favicon Embutido (SVG Data URI) -->
+  <!-- Ícone de Aplicação e Favicon Embutido -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%23064e3b'/%3E%3C/linearGradient%3E%3ClinearGradient id='em' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334d399'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Crect width='506' height='506' x='3' y='3' rx='112' fill='none' stroke='%2334d399' stroke-opacity='0.25' stroke-width='6'/%3E%3Crect x='106' y='160' width='300' height='205' rx='34' fill='url(%23em)'/%3E%3Cpath d='M106 195 C106 170, 126 160, 150 160 L362 160 C386 160, 406 170, 406 195 L406 222 C370 222, 320 232, 256 232 C192 232, 142 222, 106 222 Z' fill='%2310b981'/%3E%3Crect x='286' y='225' width='124' height='68' rx='18' fill='%23064e3b' stroke='%2334d399' stroke-width='3'/%3E%3Ccircle cx='348' cy='259' r='14' fill='%2334d399'/%3E%3Ccircle cx='348' cy='259' r='6' fill='%23064e3b'/%3E%3Cpath d='M150 305 L195 260 L230 280 L280 230' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='260,230 280,230 280,250' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%23064e3b'/%3E%3C/linearGradient%3E%3ClinearGradient id='em' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334d399'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Crect width='506' height='506' x='3' y='3' rx='112' fill='none' stroke='%2334d399' stroke-opacity='0.25' stroke-width='6'/%3E%3Crect x='106' y='160' width='300' height='205' rx='34' fill='url(%23em)'/%3E%3Cpath d='M106 195 C106 170, 126 160, 150 160 L362 160 C386 160, 406 170, 406 195 L406 222 C370 222, 320 232, 256 232 C192 232, 142 222, 106 222 Z' fill='%2310b981'/%3E%3Crect x='286' y='225' width='124' height='68' rx='18' fill='%23064e3b' stroke='%2334d399' stroke-width='3'/%3E%3Ccircle cx='348' cy='259' r='14' fill='%2334d399'/%3E%3Ccircle cx='348' cy='259' r='6' fill='%23064e3b'/%3E%3Cpath d='M150 305 L195 260 L230 280 L280 230' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='260,230 280,230 280,250' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
   <meta name="theme-color" content="#022c22" />
@@ -25,18 +25,18 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between p-3 sm:p-6 lg:p-8">
 
-  <!-- Banner Flutuante de Atualização com Limpeza de Cache -->
-  <div id="updateBanner" class="hidden fixed top-3 left-3 right-3 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-slate-900 border border-emerald-500/50 shadow-2xl p-4 rounded-2xl flex items-center justify-between gap-3 animate-bounce">
+  <!-- Banner Flutuante de Atualização -->
+  <div id="updateBanner" class="hidden fixed top-3 left-3 right-3 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-slate-900 border border-emerald-500/60 shadow-2xl p-4 rounded-2xl flex items-center justify-between gap-3 animate-pulse">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-        <i class="fa-solid fa-arrows-rotate fa-spin"></i>
+        <i class="fa-solid fa-cloud-arrow-down"></i>
       </div>
       <div>
-        <p class="text-xs font-bold text-white">Nova versão disponível (<span id="novaVersaoNum">v1.0.1</span>)!</p>
-        <p class="text-[11px] text-slate-400" id="novaVersaoNotas">Toque para atualizar a aplicação.</p>
+        <p class="text-xs font-bold text-white">Nova versão encontrada!</p>
+        <p class="text-[11px] text-slate-400" id="novaVersaoNotas">Toque para carregar a atualização.</p>
       </div>
     </div>
-    <button id="btnAtualizarApp" onclick="aplicarAtualizacao()" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold rounded-lg transition-all shrink-0">
+    <button id="btnAtualizarApp" onclick="aplicarAtualizacao()" class="px-3 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold rounded-lg transition-all shrink-0">
       Atualizar
     </button>
   </div>
@@ -52,13 +52,13 @@
         <div>
           <div class="flex items-center gap-2">
             <h1 class="font-bold text-lg sm:text-xl text-white">Registo de Finanças</h1>
-            <span id="badgeVersaoAtual" class="text-[10px] text-slate-500 font-mono">v1.0.0</span>
+            <span id="badgeVersaoAtual" class="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">v1.0.1</span>
           </div>
           <p class="text-xs text-slate-400">Google Folhas de Cálculo Conectado</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="verificarAtualizacaoManual()" title="Verificar atualizações" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-all text-xs">
+        <button onclick="verificarAtualizacaoManual()" title="Verificar agora" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-all text-xs">
           <i id="syncIcon" class="fa-solid fa-rotate"></i>
         </button>
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -163,80 +163,90 @@
   </div>
 
   <script>
-    // Versão local atual do App e Webhook da Folha de Cálculo
-    const VERSAO_LOCAL = "1.0.0";
-    const URL_VERSAO_REMOTA = "https://raw.githubusercontent.com/brunoserra123/finflow/main/index.html";
+    // Versão gravada neste arquivo
+    const VERSAO_BUILD = "1.0.1";
+    const GITHUB_API_URL = "https://api.github.com/repos/brunoserra123/finflow/commits/main";
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyss9qOeU3riaOeYpkkA7sa4IOvjXo9mB8xJ6EenjTUvf-YpiHt_o-3HBJ1pnTLfQg/exec";
 
-    document.getElementById("badgeVersaoAtual").innerText = `v${VERSAO_LOCAL}`;
+    document.getElementById("badgeVersaoAtual").innerText = `v${VERSAO_BUILD}`;
 
-    // --- VERIFICAÇÃO AUTOMÁTICA DE VERSÃO ---
+    // --- VERIFICAÇÃO EM TEMPO REAL VIA API DO GITHUB (SEM CACHE) ---
     async function verificarVersao(manual = false) {
       const syncIcon = document.getElementById("syncIcon");
       if (manual && syncIcon) syncIcon.classList.add("fa-spin");
 
       try {
-        // Consulta diretamente o index.html no GitHub sem cache
-        const res = await fetch(`${URL_VERSAO_REMOTA}?_t=${Date.now()}`);
+        const res = await fetch(`${GITHUB_API_URL}?_t=${Date.now()}`, {
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
         if (!res.ok) return;
 
-        const htmlRemoto = await res.text();
-        const match = htmlRemoto.match(/const VERSAO_LOCAL = ["']([^"']+)["']/);
+        const data = await res.json();
+        const ultimoCommitSha = data.sha.substring(0, 7);
+        const commitSalvo = localStorage.getItem("FINFLOW_LAST_COMMIT");
 
-        if (match && match[1] && match[1] !== VERSAO_LOCAL) {
-          document.getElementById("novaVersaoNum").innerText = `v${match[1]}`;
-          document.getElementById("novaVersaoNotas").innerText = "Nova atualização detectada no GitHub!";
+        // Se é a primeira vez que entra, salva o commit atual
+        if (!commitSalvo) {
+          localStorage.setItem("FINFLOW_LAST_COMMIT", ultimoCommitSha);
+          return;
+        }
+
+        // Se o commit no GitHub for diferente do armazenado, há atualização
+        if (ultimoCommitSha !== commitSalvo) {
+          document.getElementById("novaVersaoNotas").innerText = `Nova versão (${ultimoCommitSha}) pronta para carregar.`;
           document.getElementById("updateBanner").classList.remove("hidden");
+          window.NOVO_COMMIT_DETECTADO = ultimoCommitSha;
         } else if (manual) {
           const statusTexto = document.getElementById("statusTexto");
-          statusTexto.innerText = `Você já está na versão mais recente (v${VERSAO_LOCAL}).`;
+          statusTexto.innerText = `Aplicação atualizada na versão mais recente (${VERSAO_BUILD}).`;
         }
       } catch (e) {
-        console.warn("Verificação ignorada ou offline:", e);
+        console.warn("Verificação offline ou erro de API:", e);
       } finally {
         if (manual && syncIcon) syncIcon.classList.remove("fa-spin");
       }
     }
 
-    // --- LIMPEZA COMPLETA DE CACHE AO ATUALIZAR ---
+    // --- ATUALIZAÇÃO FORÇADA COM LIMPEZA BRUTA DE CACHE ---
     async function aplicarAtualizacao() {
       const btn = document.getElementById("btnAtualizarApp");
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Limpando cache...';
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Atualizando...';
       }
 
-      // 1. Limpa Cache Storage do navegador
+      // Se temos o novo commit, atualiza no storage
+      if (window.NOVO_COMMIT_DETECTADO) {
+        localStorage.setItem("FINFLOW_LAST_COMMIT", window.NOVO_COMMIT_DETECTADO);
+      }
+
+      // Limpa caches do navegador
       if ('caches' in window) {
         try {
-          const cacheKeys = await caches.keys();
-          await Promise.all(cacheKeys.map(key => caches.delete(key)));
-        } catch (e) {
-          console.warn("Erro ao limpar caches:", e);
-        }
+          const chKeys = await caches.keys();
+          await Promise.all(chKeys.map(k => caches.delete(k)));
+        } catch (e) {}
       }
 
-      // 2. Remove Service Workers
+      // Remove Service Workers se existirem
       if ('serviceWorker' in navigator) {
         try {
-          const registros = await navigator.serviceWorker.getRegistrations();
-          await Promise.all(registros.map(reg => reg.unregister()));
-        } catch (e) {
-          console.warn("Erro ao remover service workers:", e);
-        }
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(r => r.unregister()));
+        } catch (e) {}
       }
 
-      // 3. Força recarga direta do servidor limpando parâmetros
-      const urlAtualizada = new URL(window.location.href);
-      urlAtualizada.searchParams.set('_v', Date.now());
-      window.location.replace(urlAtualizada.toString());
+      // Força a recarga total ignorando o cache via HTTP
+      const url = new URL(window.location.href.split('?')[0]);
+      url.searchParams.set('force_reload', Date.now());
+      window.location.href = url.toString();
     }
 
     function verificarAtualizacaoManual() {
       verificarVersao(true);
     }
 
-    // Dicionário com termos comuns e autocorreção inteligente
+    // Dicionário com autocorreção
     const DICIONARIO = [
       { termo: "Dinheiro Guardado", cat: "Dinheiro Guardado" },
       { termo: "Poupança", cat: "Dinheiro Guardado" },
