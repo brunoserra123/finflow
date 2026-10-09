@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>FinFlow - Registro de Gastos</title>
+  <title>FinFlow - Registo de Gastos</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
@@ -27,8 +27,8 @@
           <i class="fa-solid fa-wallet"></i>
         </div>
         <div>
-          <h1 class="font-bold text-lg sm:text-xl text-white">Registro de Finanças</h1>
-          <p class="text-xs text-slate-400">Google Planilhas Conectado</p>
+          <h1 class="font-bold text-lg sm:text-xl text-white">Registo de Finanças</h1>
+          <p class="text-xs text-slate-400">Google Folhas de Cálculo Conectado</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
@@ -38,7 +38,7 @@
       </div>
     </header>
 
-    <!-- Grid Responsivo (1 coluna na tela externa, 2 colunas lado a lado na tela aberta) -->
+    <!-- Grid Responsivo -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
       
       <!-- Coluna 1: Dados Principais -->
@@ -64,11 +64,20 @@
           </div>
         </div>
 
-        <!-- Campo Descrição -->
-        <div>
-          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Descrição</label>
-          <input type="text" id="descricao" placeholder="Ex: Mercado, Combustível, Almoço..." 
-            class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-sm" />
+        <!-- Campo Descrição com Autocorreção / Sugestões -->
+        <div class="relative">
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">
+            Descrição <span class="text-[10px] text-emerald-400 font-normal lowercase">(com sugestão e acentuação automática)</span>
+          </label>
+          <div class="relative">
+            <input type="text" id="descricao" autocomplete="off" placeholder="Ex: cafe, almoco, padaria..." 
+              class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-sm" />
+            <span id="badgeSugestao" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30"></span>
+          </div>
+
+          <!-- Caixa flutuante de sugestões -->
+          <div id="listaSugestoes" class="hidden absolute left-0 right-0 top-full mt-1 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-800/60 max-h-48 overflow-y-auto">
+          </div>
         </div>
 
         <!-- Seletor de Categoria em Grid -->
@@ -124,8 +133,51 @@
   </div>
 
   <script>
-    // URL do Web App Apps Script embutida
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyss9qOeU3riaOeYpkkA7sa4IOvjXo9mB8xJ6EenjTUvf-YpiHt_o-3HBJ1pnTLfQg/exec";
+
+    // Dicionário de termos comuns, correção com acento e mapeamento de categoria
+    const DICIONARIO = [
+      { termo: "Café", cat: "Alimentação" },
+      { termo: "Almoço", cat: "Alimentação" },
+      { termo: "Jantar", cat: "Alimentação" },
+      { termo: "Padaria", cat: "Alimentação" },
+      { termo: "Mercado", cat: "Alimentação" },
+      { termo: "Supermercado", cat: "Alimentação" },
+      { termo: "Lanche", cat: "Alimentação" },
+      { termo: "Açaí", cat: "Alimentação" },
+      { termo: "Água", cat: "Alimentação" },
+      { termo: "Pão de Queijo", cat: "Alimentação" },
+      { termo: "Restaurante", cat: "Alimentação" },
+      { termo: "Gasolina", cat: "Transporte" },
+      { termo: "Combustível", cat: "Transporte" },
+      { termo: "Uber", cat: "Transporte" },
+      { termo: "Estacionamento", cat: "Transporte" },
+      { termo: "Pedágio", cat: "Transporte" },
+      { termo: "Lavagem Carro", cat: "Transporte" },
+      { termo: "Cinema", cat: "Lazer" },
+      { termo: "Jogos", cat: "Lazer" },
+      { termo: "Steam", cat: "Lazer" },
+      { termo: "Passeio", cat: "Lazer" },
+      { termo: "Show", cat: "Lazer" },
+      { termo: "Aluguel", cat: "Moradia" },
+      { termo: "Condomínio", cat: "Moradia" },
+      { termo: "Energia / Luz", cat: "Moradia" },
+      { termo: "Água / Saneamento", cat: "Moradia" },
+      { termo: "Internet", cat: "Moradia" },
+      { termo: "Farmácia", cat: "Saúde" },
+      { termo: "Remédio", cat: "Saúde" },
+      { termo: "Consulta Médica", cat: "Saúde" },
+      { termo: "Dentista", cat: "Saúde" },
+      { termo: "Exames", cat: "Saúde" },
+      { termo: "Roupas", cat: "Compras" },
+      { termo: "Amazon", cat: "Compras" },
+      { termo: "Shopee", cat: "Compras" },
+      { termo: "Eletrónicos", cat: "Compras" },
+      { termo: "Netflix", cat: "Assinaturas" },
+      { termo: "Spotify", cat: "Assinaturas" },
+      { termo: "YouTube Premium", cat: "Assinaturas" },
+      { termo: "iCloud / Google Drive", cat: "Assinaturas" }
+    ];
 
     const CATEGORIAS = [
       { id: "Alimentação", icon: "fa-utensils" },
@@ -140,6 +192,11 @@
 
     let categoriaSelecionada = "Alimentação";
     let tipoAtual = "Despesa";
+
+    // Normaliza texto para ignorar acentos e maiúsculas na comparação
+    function normalizar(texto) {
+      return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    }
 
     function renderCategorias() {
       const container = document.getElementById("categoriasGrid");
@@ -184,14 +241,71 @@
       }
     }
 
+    // Configuração do Sistema de Autocorreção / Sugestões
+    const descInput = document.getElementById("descricao");
+    const listaSugestoes = document.getElementById("listaSugestoes");
+    const badgeSugestao = document.getElementById("badgeSugestao");
+
+    descInput.addEventListener("input", () => {
+      const valor = descInput.value;
+      const valorNorm = normalizar(valor);
+
+      if (!valorNorm) {
+        listaSugestoes.classList.add("hidden");
+        badgeSugestao.classList.add("hidden");
+        return;
+      }
+
+      // Encontra correspondências no dicionário
+      const matches = DICIONARIO.filter(item => normalizar(item.termo).includes(valorNorm));
+
+      if (matches.length > 0) {
+        badgeSugestao.innerText = matches[0].termo;
+        badgeSugestao.classList.remove("hidden");
+
+        listaSugestoes.innerHTML = matches.slice(0, 5).map(item => `
+          <div onclick="aplicarSugestao('${item.termo}', '${item.cat}')" 
+               class="px-4 py-2.5 hover:bg-slate-800 flex items-center justify-between cursor-pointer transition-colors text-sm">
+            <span class="font-medium text-white">${item.termo}</span>
+            <span class="text-xs text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${item.cat}</span>
+          </div>
+        `).join('');
+        listaSugestoes.classList.remove("hidden");
+      } else {
+        listaSugestoes.classList.add("hidden");
+        badgeSugestao.classList.add("hidden");
+      }
+    });
+
+    function aplicarSugestao(termo, categoria) {
+      descInput.value = termo;
+      if (categoria) setCategoria(categoria);
+      listaSugestoes.classList.add("hidden");
+      badgeSugestao.classList.add("hidden");
+    }
+
+    // Esconde ao clicar fora
+    document.addEventListener("click", (e) => {
+      if (!descInput.contains(e.target) && !listaSugestoes.contains(e.target)) {
+        listaSugestoes.classList.add("hidden");
+      }
+    });
+
     async function enviarRegistro() {
       const valorInput = document.getElementById("valor");
-      const descInput = document.getElementById("descricao");
       const obsInput = document.getElementById("observacoes");
       const pagInput = document.getElementById("pagamento");
       const btn = document.getElementById("btnRegistrar");
       const statusContainer = document.getElementById("statusContainer");
       const statusTexto = document.getElementById("statusTexto");
+
+      // Se escreveu sem clicar na sugestão mas coincide com termo correto, corrige antes de enviar
+      const valorNorm = normalizar(descInput.value);
+      const correcaoExata = DICIONARIO.find(item => normalizar(item.termo) === valorNorm);
+      if (correcaoExata) {
+        descInput.value = correcaoExata.termo;
+        setCategoria(correcaoExata.cat);
+      }
 
       const valorNum = parseFloat(valorInput.value);
       if (isNaN(valorNum) || valorNum <= 0) {
@@ -204,7 +318,7 @@
       btn.disabled = true;
       btn.classList.add("opacity-50", "pointer-events-none");
       statusContainer.className = "p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-xs text-amber-300 flex items-center gap-3";
-      statusTexto.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Registrando na sua planilha...`;
+      statusTexto.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> A registar na folha de cálculo...`;
 
       const payload = {
         data: new Date().toLocaleString("pt-BR"),
@@ -217,38 +331,4 @@
       };
 
       try {
-        await fetch(WEBAPP_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        statusContainer.className = "p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-300 flex items-center gap-3";
-        statusTexto.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Sucesso! Lançado R$ ${valorNum.toFixed(2)} em ${payload.descricao}.`;
-
-        // Limpa campos para próxima inserção
-        valorInput.value = "";
-        descInput.value = "";
-        obsInput.value = "";
-        valorInput.focus();
-      } catch (err) {
-        statusContainer.className = "p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-400 flex items-center gap-3";
-        statusTexto.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Falha no envio: ${err.message}`;
-      } finally {
-        btn.disabled = false;
-        btn.classList.remove("opacity-50", "pointer-events-none");
-      }
-    }
-
-    // Atalho: tecla Enter no campo de valor ou descrição envia o formulário
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && (document.activeElement.id === "valor" || document.activeElement.id === "descricao")) {
-        enviarRegistro();
-      }
-    });
-
-    renderCategorias();
-  </script>
-</body>
-</html>
+        await fetch(WEBAPP
