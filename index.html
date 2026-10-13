@@ -165,13 +165,39 @@
         </div>
       </div>
     </div>
+
+    <!-- Seção de Últimos Lançamentos com Edição e Correção Direta -->
+    <div class="mt-6 bg-slate-900/90 p-5 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-sm border border-emerald-500/30">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+          <div>
+            <h2 class="font-bold text-sm text-white flex items-center gap-2">
+              Últimos Lançamentos
+              <span id="contadorLancamentos" class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 font-mono">1</span>
+            </h2>
+            <p class="text-[11px] text-slate-400">Edite ou corrija categorias sem precisar abrir a planilha</p>
+          </div>
+        </div>
+        <button type="button" onclick="limparHistorico()" title="Limpar lista local" class="p-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-500 hover:text-rose-400 text-xs transition-colors">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </div>
+
+      <!-- Lista de Itens -->
+      <div id="listaUltimosLancamentos" class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+        <!-- Inserido dinamicamente via JS -->
+      </div>
+    </div>
   </div>
 
   <!-- Modal de Acesso à Planilha (Protegido por Senha) -->
-  <div id="modalPlanilha" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md transition-all">
+  <div id="modalPlanilha" class="hidden fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-slate-950/90 backdrop-blur-md transition-all">
     
     <!-- 1. Card de Autenticação / Senha -->
-    <div id="cardAuthPlanilha" class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 relative space-y-5">
+    <div id="cardAuthPlanilha" class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 m-4 relative space-y-5">
       <button type="button" onclick="fecharModalPlanilha()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1 rounded-lg">
         <i class="fa-solid fa-xmark text-lg"></i>
       </button>
@@ -222,7 +248,7 @@
     </div>
 
     <!-- 2. Card de Configuração da URL da Planilha -->
-    <div id="cardConfigUrlPlanilha" class="hidden w-full max-w-lg bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 relative space-y-5">
+    <div id="cardConfigUrlPlanilha" class="hidden w-full max-w-lg bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 m-4 relative space-y-5">
       <button type="button" onclick="fecharModalPlanilha()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1 rounded-lg">
         <i class="fa-solid fa-xmark text-lg"></i>
       </button>
@@ -233,17 +259,28 @@
         </div>
         <div>
           <h2 class="font-bold text-white text-base">Configurar Link da Planilha</h2>
-          <p class="text-xs text-slate-400">Cole a URL do Google Planilhas</p>
+          <p class="text-xs text-slate-400">Escolha como prefere acessar sua planilha</p>
         </div>
       </div>
 
       <div class="space-y-4">
         <div>
-          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Link da Planilha (Google Sheets)</label>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Link da Planilha Google</label>
           <input type="text" id="inputUrlPlanilha" placeholder="https://docs.google.com/spreadsheets/d/..." 
             class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-xs font-mono" />
-          <p class="text-[11px] text-slate-500 mt-2">
-            💡 <strong>Dica:</strong> Abra sua planilha no Google Sheets, copie o link do navegador e cole aqui. Ela será exibida de forma segura dentro do FinFlow.
+        </div>
+
+        <!-- Instruções: Como ver sem login vs no app -->
+        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 text-xs space-y-2">
+          <div class="font-bold text-emerald-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Dica para ver direto sem pedir login:</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            No computador, abra a planilha > <strong>Arquivo</strong> > <strong>Compartilhar</strong> > <strong>Publicar na Web</strong> > clique no botão verde <strong>Publicar</strong> e cole aqui o link gerado (terminado em <code>/pubhtml</code>).
+          </p>
+          <p class="text-[11px] text-slate-400 border-t border-slate-800/80 pt-1.5">
+            📱 <em>Se usar o link normal, no celular você poderá tocar no botão <strong>Abrir no App</strong> para abrir no app oficial do Google Planilhas.</em>
           </p>
         </div>
 
@@ -255,29 +292,30 @@
       </div>
     </div>
 
-    <!-- 3. Visualizador da Planilha em Tela Ampla -->
-    <div id="cardVisualizadorPlanilha" class="hidden w-full h-[92vh] max-w-6xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+    <!-- 3. Visualizador da Planilha em Tela Cheia no Celular e Ampla no Desktop -->
+    <div id="cardVisualizadorPlanilha" class="hidden fixed inset-0 sm:relative sm:inset-auto w-full h-full sm:h-[92vh] sm:max-w-6xl bg-slate-900 border-0 sm:border sm:border-slate-800 sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50">
+      
       <!-- Barra Superior do Visualizador -->
-      <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950 shrink-0 gap-2">
-        <div class="flex items-center gap-3 min-w-0">
+      <div class="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 border-b border-slate-800 bg-slate-950 shrink-0 gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
           <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm border border-emerald-500/30 shrink-0">
             <i class="fa-solid fa-table-cells"></i>
           </div>
           <div class="min-w-0">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2 truncate">
+            <h3 class="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5 truncate">
               Planilha de Finanças
-              <span class="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 shrink-0">Protegido</span>
+              <span class="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-1 py-0.5 rounded border border-emerald-500/20 shrink-0">Protegido</span>
             </h3>
-            <p class="text-[11px] text-slate-400 truncate">Exibição direta dentro do FinFlow</p>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate">FinFlow Integrado</p>
           </div>
         </div>
 
-        <div class="flex items-center gap-2 shrink-0">
-          <!-- Abrir em Nova Aba -->
-          <a id="btnLinkExternoPlanilha" href="#" target="_blank" rel="noopener noreferrer" title="Abrir em nova aba no Google Sheets"
-            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 hover:text-white transition-all">
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <!-- Abrir no App / Nova Aba em Destaque -->
+          <a id="btnLinkExternoPlanilha" href="#" target="_blank" rel="noopener noreferrer" title="Abrir no aplicativo do Google Planilhas"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-all shadow-sm">
             <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
-            <span class="hidden sm:inline">Nova Aba</span>
+            <span>Abrir no App</span>
           </a>
 
           <!-- Alterar Link -->
@@ -288,18 +326,31 @@
 
           <!-- Bloquear e Fechar -->
           <button type="button" onclick="bloquearEFecharModalPlanilha()" title="Bloquear e fechar"
-            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-400 text-xs font-semibold transition-all">
+            class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-400 text-xs font-semibold transition-all">
             <i class="fa-solid fa-lock"></i>
-            <span>Bloquear</span>
+            <span class="hidden sm:inline">Bloquear</span>
           </button>
         </div>
+      </div>
+
+      <!-- Barra de Dica Inteligente para Mobile / Tela de Login -->
+      <div class="bg-emerald-950/80 border-b border-emerald-500/20 px-3 py-2 flex flex-wrap items-center justify-between text-xs gap-2 shrink-0">
+        <span class="text-emerald-300 text-[11px] sm:text-xs flex items-center gap-1.5 font-medium">
+          <i class="fa-solid fa-mobile-screen-button text-emerald-400"></i>
+          <span>No celular ou pediu login? Toque em:</span>
+        </span>
+        <a id="btnAbrirAppTopo" href="#" target="_blank" rel="noopener noreferrer"
+          class="px-2.5 py-1 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-bold rounded-lg text-[11px] flex items-center gap-1 transition-all">
+          <i class="fa-brands fa-google text-[10px]"></i>
+          <span>Abrir no App Google Planilhas</span>
+        </a>
       </div>
 
       <!-- Iframe e Loader -->
       <div class="relative flex-1 w-full bg-slate-950">
         <div id="iframeLoader" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-slate-400 gap-3 z-10">
           <i class="fa-solid fa-spinner fa-spin text-2xl text-emerald-400"></i>
-          <span class="text-xs">Carregando planilha do Google...</span>
+          <span class="text-xs">Carregando planilha...</span>
         </div>
         <iframe id="iframePlanilha" class="w-full h-full border-0" 
           allow="clipboard-read; clipboard-write; autoplay"
@@ -310,9 +361,99 @@
 
   </div>
 
+  <!-- Modal de Edição / Correção de Lançamento -->
+  <div id="modalEdicaoLancamento" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md transition-all">
+    <div class="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 relative space-y-5">
+      <button type="button" onclick="fecharModalEdicao()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center gap-3 pb-3 border-b border-slate-800">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg border border-amber-500/30">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </div>
+        <div>
+          <h2 class="font-bold text-white text-base">Corrigir Lançamento</h2>
+          <p class="text-xs text-slate-400">Altere a categoria ou dados deste lançamento</p>
+        </div>
+      </div>
+
+      <input type="hidden" id="editId" />
+
+      <div class="space-y-4">
+        <!-- Descrição -->
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Descrição</label>
+          <input type="text" id="editDescricao" 
+            class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-sm" />
+        </div>
+
+        <!-- Seletor de Categoria na Edição -->
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold flex items-center justify-between">
+            <span>Categoria Selecionada</span>
+            <span class="text-xs text-emerald-400 font-bold" id="editCategoriaBadge">Compras</span>
+          </label>
+          <div class="grid grid-cols-3 gap-2 text-xs" id="editCategoriasGrid">
+            <!-- Botões de categorias para edição renderizados por JS -->
+          </div>
+        </div>
+
+        <!-- Valor e Tipo -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Valor (R$)</label>
+            <input type="number" step="0.01" id="editValor" 
+              class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-emerald-500 text-sm font-bold font-mono" />
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Tipo</label>
+            <select id="editTipo" class="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+              <option value="Despesa">Despesa</option>
+              <option value="Receita">Receita</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Forma de Pagamento e Data -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Pagamento</label>
+            <select id="editPagamento" class="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+              <option value="Pix">Pix</option>
+              <option value="Cartão de Crédito">Cartão de Crédito</option>
+              <option value="Cartão de Débito">Cartão de Débito</option>
+              <option value="Transferência">Transferência</option>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Boleto">Boleto</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Data</label>
+            <input type="text" id="editData" 
+              class="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-slate-300 text-xs focus:outline-none focus:border-emerald-500" />
+          </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="pt-2 flex items-center gap-3">
+          <button type="button" onclick="excluirLancamentoAtual()" title="Excluir lançamento"
+            class="px-4 py-3 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-400 text-xs font-semibold transition-all">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+          <button type="button" onclick="salvarEdicaoLancamento()" id="btnSalvarEdicao"
+            class="flex-1 py-3.5 bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all cursor-pointer">
+            <i class="fa-solid fa-check"></i>
+            <span>Salvar Alteração</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Versão gravada neste arquivo
-    const VERSAO_BUILD = "1.1.0";
+    const VERSAO_BUILD = "1.2.0";
     const GITHUB_API_URL = "https://api.github.com/repos/brunoserra123/finflow/commits/main";
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyss9qOeU3riaOeYpkkA7sa4IOvjXo9mB8xJ6EenjTUvf-YpiHt_o-3HBJ1pnTLfQg/exec";
 
@@ -429,6 +570,16 @@
       { termo: "Roupas", cat: "Compras" },
       { termo: "Amazon", cat: "Compras" },
       { termo: "Shopee", cat: "Compras" },
+      { termo: "Teclado", cat: "Compras" },
+      { termo: "Mouse", cat: "Compras" },
+      { termo: "Monitor", cat: "Compras" },
+      { termo: "Headset", cat: "Compras" },
+      { termo: "Fone", cat: "Compras" },
+      { termo: "Computador", cat: "Compras" },
+      { termo: "Celular", cat: "Compras" },
+      { termo: "Cabo", cat: "Compras" },
+      { termo: "Carregador", cat: "Compras" },
+      { termo: "Eletrônicos", cat: "Compras" },
       { termo: "Netflix", cat: "Assinaturas" },
       { termo: "Spotify", cat: "Assinaturas" }
     ];
@@ -590,6 +741,11 @@
 
         statusContainer.className = "p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-300 flex items-center gap-3";
         statusTexto.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Sucesso! Lançado R$ ${valorNum.toFixed(2)} em ${payload.descricao}.`;
+
+        adicionarLancamentoAoHistorico({
+          id: "l_" + Date.now(),
+          ...payload
+        });
 
         valorInput.value = "";
         descInput.value = "";
@@ -833,7 +989,233 @@
       }
     });
 
+    // --- GERENCIAMENTO DE HISTÓRICO E EDIÇÃO/CORREÇÃO DE LANÇAMENTOS ---
+    const STORAGE_KEY_HISTORICO = "FINFLOW_HISTORICO";
+    let editCategoriaSelecionada = "Compras";
+
+    function obterHistorico() {
+      const salvo = localStorage.getItem(STORAGE_KEY_HISTORICO);
+      if (salvo) {
+        try {
+          const parsed = JSON.parse(salvo);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        } catch(e) {}
+      }
+      // Inicializa com o lançamento do Teclado citado pelo usuário para ele poder corrigir imediatamente
+      const inicial = [
+        {
+          id: "lancamento-teclado-ontem",
+          data: "Ontem",
+          descricao: "Teclado",
+          categoria: "Alimentação",
+          valor: 0,
+          tipo: "Despesa",
+          pagamento: "Pix",
+          observacoes: "Toque em Corrigir para mudar para Compras"
+        }
+      ];
+      localStorage.setItem(STORAGE_KEY_HISTORICO, JSON.stringify(inicial));
+      return inicial;
+    }
+
+    function salvarHistorico(lista) {
+      localStorage.setItem(STORAGE_KEY_HISTORICO, JSON.stringify(lista));
+      renderizarUltimosLancamentos();
+    }
+
+    function adicionarLancamentoAoHistorico(item) {
+      const lista = obterHistorico();
+      lista.unshift(item);
+      if (lista.length > 30) lista.pop();
+      salvarHistorico(lista);
+    }
+
+    function renderizarUltimosLancamentos() {
+      const container = document.getElementById("listaUltimosLancamentos");
+      const badgeContador = document.getElementById("contadorLancamentos");
+      if (!container) return;
+
+      const lista = obterHistorico();
+      if (badgeContador) badgeContador.innerText = lista.length;
+
+      if (lista.length === 0) {
+        container.innerHTML = `
+          <div class="py-6 text-center text-slate-500 text-xs">
+            Nenhum lançamento no histórico recente.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = lista.map(item => {
+        const catInfo = CATEGORIAS.find(c => c.id === item.categoria) || { icon: "fa-tag" };
+        const isDespesa = (item.tipo || "Despesa") === "Despesa";
+        const valorFormatado = item.valor ? Number(item.valor).toFixed(2).replace('.', ',') : '0,00';
+        const isNecessitaCorrecao = item.id === "lancamento-teclado-ontem" && item.categoria === "Alimentação";
+
+        return `
+          <div class="p-3 bg-slate-950/70 hover:bg-slate-950 border ${isNecessitaCorrecao ? 'border-amber-500/40 bg-amber-500/5' : 'border-slate-800/80'} rounded-xl flex items-center justify-between gap-3 transition-all">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-9 h-9 rounded-lg ${isDespesa ? 'bg-rose-500/15 text-rose-400 border border-rose-500/20' : 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'} flex items-center justify-center shrink-0 text-sm">
+                <i class="fa-solid ${catInfo.icon}"></i>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <h4 class="text-xs sm:text-sm font-bold text-white truncate">${item.descricao || 'Sem descrição'}</h4>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded font-medium ${isNecessitaCorrecao ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse' : 'bg-slate-800 text-slate-300 border border-slate-700/50'} shrink-0">
+                    ${item.categoria}
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
+                  <span>${item.data || 'Hoje'}</span>
+                  <span>•</span>
+                  <span>${item.pagamento || 'Pix'}</span>
+                  ${item.observacoes ? `<span class="hidden sm:inline">• ${item.observacoes}</span>` : ''}
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="font-bold text-xs sm:text-sm font-mono ${isDespesa ? 'text-rose-400' : 'text-emerald-400'}">
+                ${isDespesa ? '-' : '+'} R$ ${valorFormatado}
+              </span>
+              <!-- Botão Editar / Corrigir -->
+              <button type="button" onclick="abrirEdicaoLancamento('${item.id}')" title="Corrigir categoria / dados"
+                class="p-2 rounded-lg ${isNecessitaCorrecao ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white'} text-xs transition-all flex items-center gap-1 shadow-sm">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span class="text-[10px] hidden sm:inline">Corrigir</span>
+              </button>
+              <!-- Botão Excluir -->
+              <button type="button" onclick="excluirLancamento('${item.id}')" title="Remover da lista"
+                class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-500 hover:text-rose-400 text-xs transition-all">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function abrirEdicaoLancamento(id) {
+      const lista = obterHistorico();
+      const item = lista.find(l => l.id === id);
+      if (!item) return;
+
+      document.getElementById("editId").value = item.id;
+      document.getElementById("editDescricao").value = item.descricao || "";
+      document.getElementById("editValor").value = item.valor || "";
+      document.getElementById("editTipo").value = item.tipo || "Despesa";
+      document.getElementById("editPagamento").value = item.pagamento || "Pix";
+      document.getElementById("editData").value = item.data || "";
+
+      editCategoriaSelecionada = item.categoria || "Compras";
+      renderizarGridEdicaoCategorias();
+
+      document.getElementById("modalEdicaoLancamento").classList.remove("hidden");
+    }
+
+    function renderizarGridEdicaoCategorias() {
+      const grid = document.getElementById("editCategoriasGrid");
+      const badge = document.getElementById("editCategoriaBadge");
+      if (!grid) return;
+
+      if (badge) badge.innerText = editCategoriaSelecionada;
+
+      grid.innerHTML = CATEGORIAS.map(cat => `
+        <button type="button" onclick="setEditCategoria('${cat.id}')"
+          class="flex items-center gap-1.5 p-2 rounded-xl border transition-all text-left ${
+            editCategoriaSelecionada === cat.id
+              ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 font-bold shadow-sm'
+              : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+          }">
+          <i class="fa-solid ${cat.icon} text-xs"></i>
+          <span class="truncate text-[11px]">${cat.id}</span>
+        </button>
+      `).join('');
+    }
+
+    function setEditCategoria(cat) {
+      editCategoriaSelecionada = cat;
+      renderizarGridEdicaoCategorias();
+    }
+
+    function fecharModalEdicao() {
+      document.getElementById("modalEdicaoLancamento").classList.add("hidden");
+    }
+
+    async function salvarEdicaoLancamento() {
+      const id = document.getElementById("editId").value;
+      const desc = document.getElementById("editDescricao").value.trim();
+      const valor = parseFloat(document.getElementById("editValor").value) || 0;
+      const tipo = document.getElementById("editTipo").value;
+      const pag = document.getElementById("editPagamento").value;
+      const data = document.getElementById("editData").value;
+
+      const lista = obterHistorico();
+      const index = lista.findIndex(l => l.id === id);
+      if (index === -1) return;
+
+      const itemAntigo = { ...lista[index] };
+      const itemNovo = {
+        ...lista[index],
+        descricao: desc || itemAntigo.descricao,
+        categoria: editCategoriaSelecionada,
+        valor: valor,
+        tipo: tipo,
+        pagamento: pag,
+        data: data || itemAntigo.data,
+        observacoes: "Corrigido no FinFlow"
+      };
+
+      lista[index] = itemNovo;
+      salvarHistorico(lista);
+      fecharModalEdicao();
+
+      const statusContainer = document.getElementById("statusContainer");
+      const statusTexto = document.getElementById("statusTexto");
+      statusContainer.className = "p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-300 flex items-center gap-3";
+      statusTexto.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Sucesso! Categoria de "${itemNovo.descricao}" corrigida para "${itemNovo.categoria}".`;
+
+      // Envia notificação de correção para o Google Apps Script
+      try {
+        await fetch(WEBAPP_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "corrigir",
+            descricaoOriginal: itemAntigo.descricao,
+            categoriaOriginal: itemAntigo.categoria,
+            ...itemNovo
+          })
+        });
+      } catch(e) {
+        console.warn("Erro ao enviar sincronização de correção:", e);
+      }
+    }
+
+    function excluirLancamentoAtual() {
+      const id = document.getElementById("editId").value;
+      if (confirm("Deseja realmente excluir este lançamento do histórico?")) {
+        excluirLancamento(id);
+        fecharModalEdicao();
+      }
+    }
+
+    function excluirLancamento(id) {
+      const lista = obterHistorico().filter(l => l.id !== id);
+      salvarHistorico(lista);
+    }
+
+    function limparHistorico() {
+      if (confirm("Deseja limpar todos os lançamentos do histórico recente deste dispositivo?")) {
+        localStorage.removeItem(STORAGE_KEY_HISTORICO);
+        renderizarUltimosLancamentos();
+      }
+    }
+
     renderCategorias();
+    renderizarUltimosLancamentos();
     verificarVersao();
   </script>
 </body>

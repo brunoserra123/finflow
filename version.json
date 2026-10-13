@@ -1,4 +1,4 @@
 {
-  "version": "1.1.0",
-  "notes": "Adicionado acesso protegido por senha e visualizador integrado da planilha do Google Sheets"
+  "version": "1.2.0",
+  "notes": "Adicionado histórico de lançamentos com edição e correção de categorias (ex: Teclado para Compras) e termos de tecnologia"
 }
