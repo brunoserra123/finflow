@@ -1,4 +1,4 @@
 {
-  "version": "2.1.0",
-  "notes": "Data formatada com número e nome do mês por extenso (ex: 13/10/2026 (Outubro)) e planilha vinculada"
+  "version": "2.2.0",
+  "notes": "Integra exclusão remota na planilha do Google ao apagar lançamentos no app e data com mês por extenso"
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>FinFlow 2.1 - Gestão Financeira Inteligente</title>
+  <title>FinFlow 2.2 - Gestão Financeira Inteligente</title>
   
   <!-- Ícone de Aplicação e Favicon Embutido -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230b0f17'/%3E%3Cstop offset='100%25' stop-color='%23064e3b'/%3E%3C/linearGradient%3E%3ClinearGradient id='em' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334d399'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Crect width='506' height='506' x='3' y='3' rx='112' fill='none' stroke='%2334d399' stroke-opacity='0.3' stroke-width='6'/%3E%3Crect x='106' y='160' width='300' height='205' rx='34' fill='url(%23em)'/%3E%3Cpath d='M106 195 C106 170, 126 160, 150 160 L362 160 C386 160, 406 170, 406 195 L406 222 C370 222, 320 232, 256 232 C192 232, 142 222, 106 222 Z' fill='%2310b981'/%3E%3Crect x='286' y='225' width='124' height='68' rx='18' fill='%23064e3b' stroke='%2334d399' stroke-width='3'/%3E%3Ccircle cx='348' cy='259' r='14' fill='%2334d399'/%3E%3Ccircle cx='348' cy='259' r='6' fill='%23064e3b'/%3E%3Cpath d='M150 305 L195 260 L230 280 L280 230' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='260,230 280,230 280,250' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
@@ -102,7 +102,7 @@
         <div>
           <div class="flex items-center gap-2">
             <h1 class="font-extrabold text-xl sm:text-2xl text-white tracking-tight">FinFlow</h1>
-            <span id="badgeVersaoAtual" class="text-[10px] text-emerald-400 font-mono-num bg-emerald-500/15 px-2 py-0.5 rounded-full border border-emerald-500/30 font-semibold">v2.1.0</span>
+            <span id="badgeVersaoAtual" class="text-[10px] text-emerald-400 font-mono-num bg-emerald-500/15 px-2 py-0.5 rounded-full border border-emerald-500/30 font-semibold">v2.2.0</span>
           </div>
           <p class="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -608,7 +608,7 @@
 
   <script>
     // Versão gravada neste arquivo
-    const VERSAO_BUILD = "2.1.0";
+    const VERSAO_BUILD = "2.2.0";
     const GITHUB_API_URL = "https://api.github.com/repos/brunoserra123/finflow/commits/main";
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyss9qOeU3riaOeYpkkA7sa4IOvjXo9mB8xJ6EenjTUvf-YpiHt_o-3HBJ1pnTLfQg/exec";
     const URL_PADRAO_PLANILHA = "https://docs.google.com/spreadsheets/d/109yp0QHe1ODOD4NUTYKigmNuFaD_WSCP78jk3jPWPQk/edit?usp=sharing";
@@ -1192,9 +1192,29 @@
       }
     }
 
-    function excluirLancamento(id) {
-      const lista = obterHistorico().filter(l => l.id !== id);
-      salvarHistorico(lista);
+    async function excluirLancamento(id) {
+      const lista = obterHistorico();
+      const itemParaExcluir = lista.find(l => l.id === id);
+      const novaLista = lista.filter(l => l.id !== id);
+      salvarHistorico(novaLista);
+
+      if (itemParaExcluir) {
+        try {
+          await fetch(WEBAPP_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "excluir",
+              descricao: itemParaExcluir.descricao,
+              valor: itemParaExcluir.valor,
+              data: itemParaExcluir.data
+            })
+          });
+        } catch(e) {
+          console.warn("Erro ao enviar exclusão para a planilha:", e);
+        }
+      }
     }
 
     function limparHistorico() {
