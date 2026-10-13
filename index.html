@@ -1,18 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>FinFlow - Registo de Gastos</title>
+  <title>FinFlow 2.0 - Gestão Financeira Inteligente</title>
   
   <!-- Ícone de Aplicação e Favicon Embutido -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%23064e3b'/%3E%3C/linearGradient%3E%3ClinearGradient id='em' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334d399'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Crect width='506' height='506' x='3' y='3' rx='112' fill='none' stroke='%2334d399' stroke-opacity='0.25' stroke-width='6'/%3E%3Crect x='106' y='160' width='300' height='205' rx='34' fill='url(%23em)'/%3E%3Cpath d='M106 195 C106 170, 126 160, 150 160 L362 160 C386 160, 406 170, 406 195 L406 222 C370 222, 320 232, 256 232 C192 232, 142 222, 106 222 Z' fill='%2310b981'/%3E%3Crect x='286' y='225' width='124' height='68' rx='18' fill='%23064e3b' stroke='%2334d399' stroke-width='3'/%3E%3Ccircle cx='348' cy='259' r='14' fill='%2334d399'/%3E%3Ccircle cx='348' cy='259' r='6' fill='%23064e3b'/%3E%3Cpath d='M150 305 L195 260 L230 280 L280 230' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='260,230 280,230 280,250' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%23064e3b'/%3E%3C/linearGradient%3E%3ClinearGradient id='em' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334d399'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Crect width='506' height='506' x='3' y='3' rx='112' fill='none' stroke='%2334d399' stroke-opacity='0.25' stroke-width='6'/%3E%3Crect x='106' y='160' width='300' height='205' rx='34' fill='url(%23em)'/%3E%3Cpath d='M106 195 C106 170, 126 160, 150 160 L362 160 C386 160, 406 170, 406 195 L406 222 C370 222, 320 232, 256 232 C192 232, 142 222, 106 222 Z' fill='%2310b981'/%3E%3Crect x='286' y='225' width='124' height='68' rx='18' fill='%23064e3b' stroke='%2334d399' stroke-width='3'/%3E%3Ccircle cx='348' cy='259' r='14' fill='%2334d399'/%3E%3Ccircle cx='348' cy='259' r='6' fill='%23064e3b'/%3E%3Cpath d='M150 305 L195 260 L230 280 L280 230' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='260,230 280,230 280,250' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
-  <meta name="theme-color" content="#022c22" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230b0f17'/%3E%3Cstop offset='100%25' stop-color='%23064e3b'/%3E%3C/linearGradient%3E%3ClinearGradient id='em' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334d399'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Crect width='506' height='506' x='3' y='3' rx='112' fill='none' stroke='%2334d399' stroke-opacity='0.3' stroke-width='6'/%3E%3Crect x='106' y='160' width='300' height='205' rx='34' fill='url(%23em)'/%3E%3Cpath d='M106 195 C106 170, 126 160, 150 160 L362 160 C386 160, 406 170, 406 195 L406 222 C370 222, 320 232, 256 232 C192 232, 142 222, 106 222 Z' fill='%2310b981'/%3E%3Crect x='286' y='225' width='124' height='68' rx='18' fill='%23064e3b' stroke='%2334d399' stroke-width='3'/%3E%3Ccircle cx='348' cy='259' r='14' fill='%2334d399'/%3E%3Ccircle cx='348' cy='259' r='6' fill='%23064e3b'/%3E%3Cpath d='M150 305 L195 260 L230 280 L280 230' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='260,230 280,230 280,250' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230b0f17'/%3E%3Cstop offset='100%25' stop-color='%23064e3b'/%3E%3C/linearGradient%3E%3ClinearGradient id='em' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334d399'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Crect width='506' height='506' x='3' y='3' rx='112' fill='none' stroke='%2334d399' stroke-opacity='0.3' stroke-width='6'/%3E%3Crect x='106' y='160' width='300' height='205' rx='34' fill='url(%23em)'/%3E%3Cpath d='M106 195 C106 170, 126 160, 150 160 L362 160 C386 160, 406 170, 406 195 L406 222 C370 222, 320 232, 256 232 C192 232, 142 222, 106 222 Z' fill='%2310b981'/%3E%3Crect x='286' y='225' width='124' height='68' rx='18' fill='%23064e3b' stroke='%2334d399' stroke-width='3'/%3E%3Ccircle cx='348' cy='259' r='14' fill='%2334d399'/%3E%3Ccircle cx='348' cy='259' r='6' fill='%23064e3b'/%3E%3Cpath d='M150 305 L195 260 L230 280 L280 230' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='260,230 280,230 280,250' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#0b0f17" />
 
+  <!-- Fontes do Google: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Frameworks e Ícones -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
   <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Estilo de rolagem moderna */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(11, 15, 23, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.5);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(16, 185, 129, 0.6);
+    }
+    /* Efeito Glassmorphism & Cartões Nobres */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover:hover {
+      border-color: rgba(16, 185, 129, 0.35);
+      transform: translateY(-2px);
+    }
+    .glass-pill {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    /* Remove setas de input number */
     input[type=number]::-webkit-inner-spin-button, 
     input[type=number]::-webkit-outer-spin-button { 
       -webkit-appearance: none; 
@@ -23,117 +68,201 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between p-3 sm:p-6 lg:p-8">
+<body class="bg-[#0b0f17] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-slate-950 pb-20 sm:pb-8">
+
+  <!-- Iluminação Ambiente de Fundo (Glow Effect) -->
+  <div class="fixed top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+  <div class="fixed bottom-10 left-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-[150px] pointer-events-none -z-10"></div>
+  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-emerald-600/5 rounded-full blur-[170px] pointer-events-none -z-10"></div>
 
   <!-- Banner Flutuante de Atualização -->
-  <div id="updateBanner" class="hidden fixed top-3 left-3 right-3 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-slate-900 border border-emerald-500/60 shadow-2xl p-4 rounded-2xl flex items-center justify-between gap-3 animate-pulse">
+  <div id="updateBanner" class="hidden fixed top-3 left-3 right-3 sm:left-auto sm:right-6 sm:max-w-md z-50 glass-card border border-emerald-500/60 shadow-2xl p-4 rounded-2xl flex items-center justify-between gap-3 animate-bounce">
     <div class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+      <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/30">
         <i class="fa-solid fa-cloud-arrow-down"></i>
       </div>
       <div>
-        <p class="text-xs font-bold text-white">Nova versão encontrada!</p>
-        <p class="text-[11px] text-slate-400" id="novaVersaoNotas">Toque para carregar a atualização.</p>
+        <p class="text-xs font-bold text-white">Nova versão disponível!</p>
+        <p class="text-[11px] text-slate-400" id="novaVersaoNotas">Toque para atualizar agora.</p>
       </div>
     </div>
-    <button id="btnAtualizarApp" onclick="aplicarAtualizacao()" class="px-3 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold rounded-lg transition-all shrink-0">
+    <button id="btnAtualizarApp" onclick="aplicarAtualizacao()" class="px-3.5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold rounded-xl transition-all shadow-md shrink-0 active:scale-95">
       Atualizar
     </button>
   </div>
 
-  <div class="max-w-4xl mx-auto w-full flex-1">
+  <div class="max-w-5xl mx-auto w-full px-3.5 sm:px-6 lg:px-8 pt-4 sm:pt-6 flex-1">
     
-    <!-- Cabeçalho -->
-    <header class="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center font-bold text-lg border border-emerald-500/30">
+    <!-- Cabeçalho Principal Estilo Fintech -->
+    <header class="flex items-center justify-between pb-5 border-b border-slate-800/80 mb-6">
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500/20 via-emerald-500/10 to-teal-400/20 text-emerald-400 flex items-center justify-center font-bold text-xl border border-emerald-500/30 shadow-lg shadow-emerald-500/10">
           <i class="fa-solid fa-wallet"></i>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="font-bold text-lg sm:text-xl text-white">Registo de Finanças</h1>
-            <span id="badgeVersaoAtual" class="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">v1.0.1</span>
+            <h1 class="font-extrabold text-xl sm:text-2xl text-white tracking-tight">FinFlow</h1>
+            <span id="badgeVersaoAtual" class="text-[10px] text-emerald-400 font-mono-num bg-emerald-500/15 px-2 py-0.5 rounded-full border border-emerald-500/30 font-semibold">v2.0.0</span>
           </div>
-          <p class="text-xs text-slate-400">Google Folhas de Cálculo Conectado</p>
+          <p class="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Google Folhas Conectado
+          </p>
         </div>
       </div>
+
       <div class="flex items-center gap-2">
-        <button type="button" onclick="abrirModalPlanilha()" title="Acessar Planilha Protegida" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition-all shadow-sm">
+        <!-- Botão Acessar Planilha -->
+        <button type="button" onclick="abrirModalPlanilha()" title="Acessar Planilha Protegida" 
+          class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 active:scale-95 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition-all shadow-sm">
           <i class="fa-solid fa-table-cells"></i>
           <span>Planilha</span>
           <i class="fa-solid fa-lock text-[10px] text-emerald-400/70"></i>
         </button>
-        <button onclick="verificarAtualizacaoManual()" title="Verificar agora" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-all text-xs">
+
+        <!-- Sincronização / Reload -->
+        <button onclick="verificarAtualizacaoManual()" title="Verificar atualizações" 
+          class="p-2.5 rounded-xl glass-card text-slate-400 hover:text-white transition-all text-xs hover:border-slate-700 active:scale-95">
           <i id="syncIcon" class="fa-solid fa-rotate"></i>
         </button>
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Online
-        </span>
       </div>
     </header>
 
-    <!-- Grid Adaptável -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-      
-      <!-- Coluna 1: Campos Primários -->
-      <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 shadow-xl space-y-4">
-        
-        <!-- Toggle Tipo -->
-        <div class="grid grid-cols-2 p-1 bg-slate-950 rounded-xl border border-slate-800 text-sm font-semibold">
-          <button type="button" id="btnDespesa" onclick="setTipo('Despesa')" class="py-2.5 rounded-lg bg-rose-500 text-white transition-all flex items-center justify-center gap-2 shadow-sm">
-            <i class="fa-solid fa-arrow-down"></i> Despesa
-          </button>
-          <button type="button" id="btnReceita" onclick="setTipo('Receita')" class="py-2.5 rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2">
-            <i class="fa-solid fa-arrow-up"></i> Receita
-          </button>
+    <!-- Cards de Resumo Financeiro (Fintech Dashboard) -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6" id="secaoResumo">
+      <!-- Card 1: Saldo Líquido -->
+      <div class="glass-card p-4 rounded-2xl relative overflow-hidden transition-all glass-card-hover">
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-medium uppercase tracking-wider">Saldo Líquido</span>
+          <span class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </span>
         </div>
-
-        <!-- Campo Valor -->
-        <div>
-          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Valor</label>
-          <div class="relative">
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-slate-400">R$</span>
-            <input type="number" step="0.01" id="valor" inputmode="decimal" placeholder="0,00" autofocus
-              class="w-full pl-14 pr-4 py-3.5 bg-slate-950 border border-slate-800 rounded-xl text-3xl font-extrabold text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
-          </div>
-        </div>
-
-        <!-- Campo Descrição com Autocorreção e Sugestões -->
-        <div class="relative">
-          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold flex items-center justify-between">
-            <span>Descrição</span>
-            <span class="text-[10px] text-emerald-400 lowercase font-normal">correção automática</span>
-          </label>
-          <div class="relative">
-            <input type="text" id="descricao" autocomplete="off" placeholder="Ex: cafe, almoco, guardar..." 
-              class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-sm" />
-            <span id="badgeSugestao" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30"></span>
-          </div>
-
-          <!-- Menu de Sugestões -->
-          <div id="listaSugestoes" class="hidden absolute left-0 right-0 top-full mt-1 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-800/60 max-h-48 overflow-y-auto"></div>
-        </div>
-
-        <!-- Seletor de Categoria -->
-        <div>
-          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-semibold">Categoria</label>
-          <div class="grid grid-cols-3 gap-2 text-xs" id="categoriasGrid"></div>
+        <div class="text-xl sm:text-2xl font-black text-white font-mono-num" id="cardSaldoValor">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
+          <span class="text-emerald-400 font-medium">Histórico</span> neste dispositivo
         </div>
       </div>
 
-      <!-- Coluna 2: Detalhes e Confirmação -->
-      <div class="space-y-4 flex flex-col justify-between">
-        <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+      <!-- Card 2: Despesas -->
+      <div class="glass-card p-4 rounded-2xl relative overflow-hidden transition-all glass-card-hover">
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-medium uppercase tracking-wider">Despesas</span>
+          <span class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-arrow-trend-down"></i>
+          </span>
+        </div>
+        <div class="text-xl sm:text-2xl font-black text-rose-400 font-mono-num" id="cardDespesasValor">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1">Gastos registrados</div>
+      </div>
+
+      <!-- Card 3: Receitas -->
+      <div class="glass-card p-4 rounded-2xl relative overflow-hidden transition-all glass-card-hover">
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-medium uppercase tracking-wider">Receitas</span>
+          <span class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+          </span>
+        </div>
+        <div class="text-xl sm:text-2xl font-black text-emerald-400 font-mono-num" id="cardReceitasValor">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1">Entradas registradas</div>
+      </div>
+
+      <!-- Card 4: Dinheiro Guardado -->
+      <div class="glass-card p-4 rounded-2xl relative overflow-hidden transition-all glass-card-hover">
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-medium uppercase tracking-wider">Guardado</span>
+          <span class="w-7 h-7 rounded-lg bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-piggy-bank"></i>
+          </span>
+        </div>
+        <div class="text-xl sm:text-2xl font-black text-indigo-400 font-mono-num" id="cardGuardadoValor">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1">Investimentos & Caixinhas</div>
+      </div>
+    </section>
+
+    <!-- Grid de Lançamento Principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5" id="secaoFormulario">
+      
+      <!-- Coluna 1 (7 Colunas): Tipo, Valor e Descrição -->
+      <div class="lg:col-span-7 glass-card p-5 sm:p-6 rounded-3xl shadow-2xl space-y-5">
+        
+        <!-- Toggle Tipo: Despesa vs Receita -->
+        <div class="grid grid-cols-2 p-1.5 bg-slate-950/80 rounded-2xl border border-slate-800 text-sm font-bold">
+          <button type="button" id="btnDespesa" onclick="setTipo('Despesa')" 
+            class="py-3 rounded-xl bg-rose-500 text-white transition-all flex items-center justify-center gap-2 shadow-md shadow-rose-500/20 active:scale-95 cursor-pointer">
+            <i class="fa-solid fa-arrow-down"></i>
+            <span>Despesa</span>
+          </button>
+          <button type="button" id="btnReceita" onclick="setTipo('Receita')" 
+            class="py-3 rounded-xl text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer">
+            <i class="fa-solid fa-arrow-up"></i>
+            <span>Receita</span>
+          </button>
+        </div>
+
+        <!-- Campo Valor Estilo Banco Digital -->
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-bold flex items-center justify-between">
+            <span>Quanto você gastou?</span>
+            <span class="text-[10px] text-emerald-400 font-mono-num font-normal">Moeda: BRL (R$)</span>
+          </label>
+          <div class="relative group">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl font-extrabold text-slate-500 group-focus-within:text-emerald-400 transition-colors">R$</span>
+            <input type="number" step="0.01" id="valor" inputmode="decimal" placeholder="0,00" autofocus
+              class="w-full pl-16 pr-4 py-4 sm:py-5 bg-slate-950/90 border border-slate-800/90 rounded-2xl text-3xl sm:text-4xl font-black text-white font-mono-num placeholder-slate-700 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all" />
+          </div>
+        </div>
+
+        <!-- Campo Descrição com Autocorreção Inteligente -->
+        <div class="relative">
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-bold flex items-center justify-between">
+            <span>Descrição</span>
+            <span class="text-[10px] text-emerald-400 font-normal">categorização automática ✨</span>
+          </label>
+          <div class="relative">
+            <input type="text" id="descricao" autocomplete="off" placeholder="Ex: teclado, mercado, café, caixinha..." 
+              class="w-full px-4 py-3.5 bg-slate-950/90 border border-slate-800/90 rounded-2xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-sm transition-all" />
+            <span id="badgeSugestao" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-[11px] bg-emerald-500/20 text-emerald-300 font-semibold px-2.5 py-1 rounded-lg border border-emerald-500/30"></span>
+          </div>
+
+          <!-- Sugestões Rápidas em Chips Clicáveis -->
+          <div class="flex items-center gap-1.5 mt-2.5 overflow-x-auto pb-1 text-xs no-scrollbar">
+            <span class="text-[10px] text-slate-500 font-semibold uppercase mr-1 shrink-0">Rápidos:</span>
+            <button type="button" onclick="preencherRapido('Teclado', 'Compras')" class="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:text-white hover:border-emerald-500/50 text-[11px] shrink-0 transition-all">⌨️ Teclado</button>
+            <button type="button" onclick="preencherRapido('Mercado', 'Alimentação')" class="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:text-white hover:border-emerald-500/50 text-[11px] shrink-0 transition-all">🛒 Mercado</button>
+            <button type="button" onclick="preencherRapido('Almoço', 'Alimentação')" class="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:text-white hover:border-emerald-500/50 text-[11px] shrink-0 transition-all">🍲 Almoço</button>
+            <button type="button" onclick="preencherRapido('Uber', 'Transporte')" class="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:text-white hover:border-emerald-500/50 text-[11px] shrink-0 transition-all">🚗 Uber</button>
+            <button type="button" onclick="preencherRapido('Caixinha', 'Dinheiro Guardado')" class="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:text-white hover:border-emerald-500/50 text-[11px] shrink-0 transition-all">🐷 Caixinha</button>
+          </div>
+
+          <!-- Dropdown de Sugestões -->
+          <div id="listaSugestoes" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-800/80 max-h-48 overflow-y-auto"></div>
+        </div>
+
+        <!-- Seletor de Categoria com Efeito Visual Refinado -->
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2.5 font-bold flex items-center justify-between">
+            <span>Categoria Selecionada</span>
+            <span id="categoriaAtivaNome" class="text-xs text-emerald-400 font-bold">Alimentação</span>
+          </label>
+          <div class="grid grid-cols-3 gap-2" id="categoriasGrid"></div>
+        </div>
+      </div>
+
+      <!-- Coluna 2 (5 Colunas): Pagamento, Observações e Ação -->
+      <div class="lg:col-span-5 flex flex-col justify-between space-y-5">
+        <div class="glass-card p-5 sm:p-6 rounded-3xl shadow-2xl space-y-5 flex-1">
           
           <!-- Forma de Pagamento -->
           <div>
-            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Forma de Pagamento</label>
-            <div class="grid grid-cols-3 gap-2 text-xs mb-2">
-              <button type="button" onclick="setPagamento('Pix')" class="py-2 px-1 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 font-medium active:scale-95 transition-all text-center">Pix</button>
-              <button type="button" onclick="setPagamento('Crédito')" class="py-2 px-1 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 font-medium active:scale-95 transition-all text-center">Crédito</button>
-              <button type="button" onclick="setPagamento('Débito')" class="py-2 px-1 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 font-medium active:scale-95 transition-all text-center">Débito</button>
+            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-bold">Forma de Pagamento</label>
+            <div class="grid grid-cols-3 gap-2 text-xs mb-2.5">
+              <button type="button" onclick="setPagamento('Pix')" class="py-2.5 px-1 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 hover:text-white hover:border-slate-700 font-bold active:scale-95 transition-all text-center">Pix</button>
+              <button type="button" onclick="setPagamento('Crédito')" class="py-2.5 px-1 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 hover:text-white hover:border-slate-700 font-bold active:scale-95 transition-all text-center">Crédito</button>
+              <button type="button" onclick="setPagamento('Débito')" class="py-2.5 px-1 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 hover:text-white hover:border-slate-700 font-bold active:scale-95 transition-all text-center">Débito</button>
             </div>
-            <select id="pagamento" class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+            <select id="pagamento" class="w-full px-4 py-3 bg-slate-950/90 border border-slate-800/90 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500 font-medium">
               <option value="Pix">Pix</option>
               <option value="Cartão de Crédito">Cartão de Crédito</option>
               <option value="Cartão de Débito">Cartão de Débito</option>
@@ -145,53 +274,79 @@
 
           <!-- Observações -->
           <div>
-            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Observações (Opcional)</label>
-            <input type="text" id="observacoes" placeholder="Ex: Parcelado 1/3, Caixinha Nubank..." 
-              class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-sm" />
+            <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2 font-bold">Observações (Opcional)</label>
+            <input type="text" id="observacoes" placeholder="Ex: Parcelado 1/3, caixinha Nubank..." 
+              class="w-full px-4 py-3 bg-slate-950/90 border border-slate-800/90 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-sm" />
           </div>
 
-          <!-- Botão de Gravação -->
+          <!-- Botão Principal de Lançamento com Glow Esmeralda -->
           <button type="button" id="btnRegistrar" onclick="enviarRegistro()" 
-            class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-bold rounded-xl text-base flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all cursor-pointer">
+            class="w-full py-4.5 bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-400 hover:brightness-110 active:scale-[0.98] text-slate-950 font-black rounded-2xl text-base flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-500/25 transition-all cursor-pointer">
             <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
             <span>Lançar na Planilha</span>
           </button>
         </div>
 
         <!-- Box de Retorno e Estado -->
-        <div id="statusContainer" class="p-4 rounded-xl border border-slate-800 bg-slate-900/50 text-xs text-slate-400 flex items-center gap-3">
+        <div id="statusContainer" class="p-4 rounded-2xl border border-slate-800/80 glass-card text-xs text-slate-400 flex items-center gap-3">
           <i class="fa-solid fa-circle-info text-slate-500 text-base"></i>
           <span id="statusTexto">Pronto para novo lançamento.</span>
         </div>
       </div>
     </div>
 
-    <!-- Seção de Últimos Lançamentos com Edição e Correção Direta -->
-    <div class="mt-6 bg-slate-900/90 p-5 rounded-2xl border border-slate-800 shadow-xl space-y-4">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-sm border border-emerald-500/30">
+    <!-- Seção de Últimos Lançamentos com Edição e Correção Rápida -->
+    <section class="mt-8 glass-card p-5 sm:p-6 rounded-3xl shadow-2xl space-y-4" id="secaoHistorico">
+      <div class="flex items-center justify-between pb-3.5 border-b border-slate-800/80">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-sm border border-emerald-500/30">
             <i class="fa-solid fa-clock-rotate-left"></i>
           </div>
           <div>
-            <h2 class="font-bold text-sm text-white flex items-center gap-2">
+            <h2 class="font-extrabold text-base text-white flex items-center gap-2">
               Últimos Lançamentos
-              <span id="contadorLancamentos" class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 font-mono">1</span>
+              <span id="contadorLancamentos" class="text-[10px] text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded-full border border-emerald-500/30 font-mono-num font-bold">1</span>
             </h2>
-            <p class="text-[11px] text-slate-400">Edite ou corrija categorias sem precisar abrir a planilha</p>
+            <p class="text-xs text-slate-400">Edite ou corrija categorias sem precisar abrir a planilha</p>
           </div>
         </div>
-        <button type="button" onclick="limparHistorico()" title="Limpar lista local" class="p-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-500 hover:text-rose-400 text-xs transition-colors">
+        <button type="button" onclick="limparHistorico()" title="Limpar lista local" 
+          class="p-2.5 rounded-xl bg-slate-950/80 hover:bg-slate-800 border border-slate-800 text-slate-500 hover:text-rose-400 text-xs transition-colors">
           <i class="fa-solid fa-trash-can"></i>
         </button>
       </div>
 
       <!-- Lista de Itens -->
-      <div id="listaUltimosLancamentos" class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
-        <!-- Inserido dinamicamente via JS -->
+      <div id="listaUltimosLancamentos" class="space-y-3 max-h-96 overflow-y-auto pr-1">
+        <!-- Renderizado dinamicamente via JS -->
       </div>
-    </div>
+    </section>
+
   </div>
+
+  <!-- Barra de Navegação Inferior para Celular (Bottom Navigation Bar) -->
+  <nav class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0b0f17]/90 backdrop-blur-xl border-t border-slate-800/80 px-6 py-2.5 flex justify-around items-center">
+    <button type="button" onclick="irParaAba('inicio')" class="flex flex-col items-center gap-1 text-emerald-400">
+      <i class="fa-solid fa-house text-base"></i>
+      <span class="text-[10px] font-bold">Início</span>
+    </button>
+    <button type="button" onclick="irParaAba('historico')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white">
+      <i class="fa-solid fa-clock-rotate-left text-base"></i>
+      <span class="text-[10px] font-medium">Histórico</span>
+    </button>
+    <!-- Botão Central Novo Lançamento -->
+    <button type="button" onclick="focarNoValor()" class="-mt-5 w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 text-slate-950 flex items-center justify-center font-extrabold text-lg shadow-lg shadow-emerald-500/30 active:scale-90 transition-all border-2 border-[#0b0f17]">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+    <button type="button" onclick="abrirModalPlanilha()" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white">
+      <i class="fa-solid fa-table-cells text-base"></i>
+      <span class="text-[10px] font-medium">Planilha</span>
+    </button>
+    <button type="button" onclick="irParaAba('resumo')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white">
+      <i class="fa-solid fa-chart-pie text-base"></i>
+      <span class="text-[10px] font-medium">Resumo</span>
+    </button>
+  </nav>
 
   <!-- Modal de Acesso à Planilha (Protegido por Senha) -->
   <div id="modalPlanilha" class="hidden fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-slate-950/90 backdrop-blur-md transition-all">
@@ -217,7 +372,7 @@
           <label id="labelSenhaPlanilha" class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Digite a sua senha</label>
           <div class="relative">
             <input type="password" id="inputSenhaPlanilha" placeholder="••••••••" autocomplete="off"
-              class="w-full pl-4 pr-11 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-center font-mono tracking-widest text-lg" />
+              class="w-full pl-4 pr-11 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-center font-mono-num tracking-widest text-lg" />
             <button type="button" onclick="toggleVisibilidadeSenha()" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-sm">
               <i id="iconeOlhoSenha" class="fa-solid fa-eye"></i>
             </button>
@@ -267,7 +422,7 @@
         <div>
           <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Link da Planilha Google</label>
           <input type="text" id="inputUrlPlanilha" placeholder="https://docs.google.com/spreadsheets/d/..." 
-            class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-xs font-mono" />
+            class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-xs font-mono-num" />
         </div>
 
         <!-- Instruções: Como ver sem login vs no app -->
@@ -304,7 +459,7 @@
           <div class="min-w-0">
             <h3 class="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5 truncate">
               Planilha de Finanças
-              <span class="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-1 py-0.5 rounded border border-emerald-500/20 shrink-0">Protegido</span>
+              <span class="text-[10px] text-emerald-400 font-mono-num bg-emerald-500/10 px-1 py-0.5 rounded border border-emerald-500/20 shrink-0">Protegido</span>
             </h3>
             <p class="text-[10px] sm:text-[11px] text-slate-400 truncate">FinFlow Integrado</p>
           </div>
@@ -404,7 +559,7 @@
           <div>
             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Valor (R$)</label>
             <input type="number" step="0.01" id="editValor" 
-              class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-emerald-500 text-sm font-bold font-mono" />
+              class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-emerald-500 text-sm font-bold font-mono-num" />
           </div>
           <div>
             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Tipo</label>
@@ -453,7 +608,7 @@
 
   <script>
     // Versão gravada neste arquivo
-    const VERSAO_BUILD = "1.2.0";
+    const VERSAO_BUILD = "2.0.0";
     const GITHUB_API_URL = "https://api.github.com/repos/brunoserra123/finflow/commits/main";
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyss9qOeU3riaOeYpkkA7sa4IOvjXo9mB8xJ6EenjTUvf-YpiHt_o-3HBJ1pnTLfQg/exec";
 
@@ -474,13 +629,11 @@
         const ultimoCommitSha = data.sha.substring(0, 7);
         const commitSalvo = localStorage.getItem("FINFLOW_LAST_COMMIT");
 
-        // Se é a primeira vez que entra, salva o commit atual
         if (!commitSalvo) {
           localStorage.setItem("FINFLOW_LAST_COMMIT", ultimoCommitSha);
           return;
         }
 
-        // Se o commit no GitHub for diferente do armazenado, há atualização
         if (ultimoCommitSha !== commitSalvo) {
           document.getElementById("novaVersaoNotas").innerText = `Nova versão (${ultimoCommitSha}) pronta para carregar.`;
           document.getElementById("updateBanner").classList.remove("hidden");
@@ -504,12 +657,10 @@
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Atualizando...';
       }
 
-      // Se temos o novo commit, atualiza no storage
       if (window.NOVO_COMMIT_DETECTADO) {
         localStorage.setItem("FINFLOW_LAST_COMMIT", window.NOVO_COMMIT_DETECTADO);
       }
 
-      // Limpa caches do navegador
       if ('caches' in window) {
         try {
           const chKeys = await caches.keys();
@@ -517,7 +668,6 @@
         } catch (e) {}
       }
 
-      // Remove Service Workers se existirem
       if ('serviceWorker' in navigator) {
         try {
           const regs = await navigator.serviceWorker.getRegistrations();
@@ -525,7 +675,6 @@
         } catch (e) {}
       }
 
-      // Força a recarga total ignorando o cache via HTTP
       const url = new URL(window.location.href.split('?')[0]);
       url.searchParams.set('force_reload', Date.now());
       window.location.href = url.toString();
@@ -535,7 +684,7 @@
       verificarVersao(true);
     }
 
-    // Dicionário com autocorreção
+    // Dicionário com autocorreção enriquecido
     const DICIONARIO = [
       { termo: "Dinheiro Guardado", cat: "Dinheiro Guardado" },
       { termo: "Poupança", cat: "Dinheiro Guardado" },
@@ -605,15 +754,18 @@
 
     function renderCategorias() {
       const container = document.getElementById("categoriasGrid");
+      const badge = document.getElementById("categoriaAtivaNome");
+      if (badge) badge.innerText = categoriaSelecionada;
+
       container.innerHTML = CATEGORIAS.map(cat => `
         <button type="button" onclick="setCategoria('${cat.id}')" 
-          class="flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all ${
+          class="flex flex-col items-center justify-center p-3 rounded-2xl border transition-all active:scale-95 cursor-pointer ${
             categoriaSelecionada === cat.id 
-              ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 font-semibold shadow-sm' 
-              : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+              ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 font-bold shadow-md shadow-emerald-500/10' 
+              : 'bg-slate-950/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
           }">
-          <i class="fa-solid ${cat.icon} mb-1.5 text-sm"></i>
-          <span class="truncate w-full text-[11px] text-center">${cat.id}</span>
+          <i class="fa-solid ${cat.icon} mb-1.5 text-base"></i>
+          <span class="truncate w-full text-[11px] text-center font-medium">${cat.id}</span>
         </button>
       `).join('');
     }
@@ -628,11 +780,11 @@
       const btnD = document.getElementById("btnDespesa");
       const btnR = document.getElementById("btnReceita");
       if (tipo === "Despesa") {
-        btnD.className = "py-2.5 rounded-lg bg-rose-500 text-white transition-all flex items-center justify-center gap-2 shadow-sm";
-        btnR.className = "py-2.5 rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2";
+        btnD.className = "py-3 rounded-xl bg-rose-500 text-white transition-all flex items-center justify-center gap-2 shadow-md shadow-rose-500/20 active:scale-95 cursor-pointer";
+        btnR.className = "py-3 rounded-xl text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer";
       } else {
-        btnR.className = "py-2.5 rounded-lg bg-emerald-500 text-white transition-all flex items-center justify-center gap-2 shadow-sm";
-        btnD.className = "py-2.5 rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2";
+        btnR.className = "py-3 rounded-xl bg-emerald-500 text-white transition-all flex items-center justify-center gap-2 shadow-md shadow-emerald-500/20 active:scale-95 cursor-pointer";
+        btnD.className = "py-3 rounded-xl text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer";
       }
     }
 
@@ -644,6 +796,12 @@
           break;
         }
       }
+    }
+
+    function preencherRapido(termo, cat) {
+      descInput.value = termo;
+      setCategoria(cat);
+      document.getElementById("valor").focus();
     }
 
     const descInput = document.getElementById("descricao");
@@ -668,9 +826,9 @@
 
         listaSugestoes.innerHTML = matches.slice(0, 5).map(item => `
           <div onclick="aplicarSugestao('${item.termo}', '${item.cat}')" 
-               class="px-4 py-2.5 hover:bg-slate-800 flex items-center justify-between cursor-pointer transition-colors text-sm">
+               class="px-4 py-3 hover:bg-slate-800 flex items-center justify-between cursor-pointer transition-colors text-sm">
             <span class="font-medium text-white">${item.termo}</span>
-            <span class="text-xs text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${item.cat}</span>
+            <span class="text-xs text-slate-400 bg-slate-950 px-2 py-0.5 rounded-lg border border-slate-800">${item.cat}</span>
           </div>
         `).join('');
         listaSugestoes.classList.remove("hidden");
@@ -693,6 +851,7 @@
       }
     });
 
+    // Enviar Registro para a Planilha
     async function enviarRegistro() {
       const valorInput = document.getElementById("valor");
       const obsInput = document.getElementById("observacoes");
@@ -712,13 +871,13 @@
       if (isNaN(valorNum) || valorNum <= 0) {
         valorInput.focus();
         statusTexto.innerText = "Por favor, introduza um valor válido superior a zero.";
-        statusContainer.className = "p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-400 flex items-center gap-3";
+        statusContainer.className = "p-4 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-400 flex items-center gap-3";
         return;
       }
 
       btn.disabled = true;
       btn.classList.add("opacity-50", "pointer-events-none");
-      statusContainer.className = "p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-xs text-amber-300 flex items-center gap-3";
+      statusContainer.className = "p-4 rounded-2xl border border-amber-500/30 bg-amber-500/10 text-xs text-amber-300 flex items-center gap-3";
       statusTexto.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> A registar na folha de cálculo...`;
 
       const payload = {
@@ -739,9 +898,10 @@
           body: JSON.stringify(payload)
         });
 
-        statusContainer.className = "p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-300 flex items-center gap-3";
+        statusContainer.className = "p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-300 flex items-center gap-3";
         statusTexto.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Sucesso! Lançado R$ ${valorNum.toFixed(2)} em ${payload.descricao}.`;
 
+        // Salva imediatamente no histórico local
         adicionarLancamentoAoHistorico({
           id: "l_" + Date.now(),
           ...payload
@@ -754,7 +914,7 @@
         badgeSugestao.classList.add("hidden");
         valorInput.focus();
       } catch (err) {
-        statusContainer.className = "p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-400 flex items-center gap-3";
+        statusContainer.className = "p-4 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-400 flex items-center gap-3";
         statusTexto.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Falha no envio: ${err.message}`;
       } finally {
         btn.disabled = false;
@@ -768,19 +928,281 @@
       }
     });
 
+    // --- GERENCIAMENTO DE HISTÓRICO E EDIÇÃO/CORREÇÃO DE LANÇAMENTOS ---
+    const STORAGE_KEY_HISTORICO = "FINFLOW_HISTORICO";
+    let editCategoriaSelecionada = "Compras";
+
+    function obterHistorico() {
+      const salvo = localStorage.getItem(STORAGE_KEY_HISTORICO);
+      if (salvo) {
+        try {
+          const parsed = JSON.parse(salvo);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        } catch(e) {}
+      }
+      // Inicializa com o item Teclado citado para que o usuário possa testar corrigir na hora
+      const inicial = [
+        {
+          id: "lancamento-teclado-ontem",
+          data: "Ontem",
+          descricao: "Teclado",
+          categoria: "Alimentação",
+          valor: 150.00,
+          tipo: "Despesa",
+          pagamento: "Pix",
+          observacoes: "Toque em Corrigir para mudar para Compras"
+        }
+      ];
+      localStorage.setItem(STORAGE_KEY_HISTORICO, JSON.stringify(inicial));
+      return inicial;
+    }
+
+    function salvarHistorico(lista) {
+      localStorage.setItem(STORAGE_KEY_HISTORICO, JSON.stringify(lista));
+      renderizarUltimosLancamentos();
+      atualizarResumoFinanceiro();
+    }
+
+    function adicionarLancamentoAoHistorico(item) {
+      const lista = obterHistorico();
+      lista.unshift(item);
+      if (lista.length > 30) lista.pop();
+      salvarHistorico(lista);
+    }
+
+    function renderizarUltimosLancamentos() {
+      const container = document.getElementById("listaUltimosLancamentos");
+      const badgeContador = document.getElementById("contadorLancamentos");
+      if (!container) return;
+
+      const lista = obterHistorico();
+      if (badgeContador) badgeContador.innerText = lista.length;
+
+      if (lista.length === 0) {
+        container.innerHTML = `
+          <div class="py-8 text-center text-slate-500 text-xs">
+            Nenhum lançamento no histórico recente.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = lista.map(item => {
+        const catInfo = CATEGORIAS.find(c => c.id === item.categoria) || { icon: "fa-tag" };
+        const isDespesa = (item.tipo || "Despesa") === "Despesa";
+        const valorFormatado = item.valor ? Number(item.valor).toFixed(2).replace('.', ',') : '0,00';
+        const isNecessitaCorrecao = item.id === "lancamento-teclado-ontem" && item.categoria === "Alimentação";
+
+        return `
+          <div class="p-3.5 bg-slate-950/70 hover:bg-slate-950 border ${isNecessitaCorrecao ? 'border-amber-500/40 bg-amber-500/5' : 'border-slate-800/80'} rounded-2xl flex items-center justify-between gap-3 transition-all">
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-10 h-10 rounded-xl ${isDespesa ? 'bg-rose-500/15 text-rose-400 border border-rose-500/20' : 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'} flex items-center justify-center shrink-0 text-base">
+                <i class="fa-solid ${catInfo.icon}"></i>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <h4 class="text-xs sm:text-sm font-bold text-white truncate">${item.descricao || 'Sem descrição'}</h4>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${isNecessitaCorrecao ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse' : 'bg-slate-800 text-slate-300 border border-slate-700/50'} shrink-0">
+                    ${item.categoria}
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-400 mt-1">
+                  <span>${item.data || 'Hoje'}</span>
+                  <span>•</span>
+                  <span>${item.pagamento || 'Pix'}</span>
+                  ${item.observacoes ? `<span class="hidden sm:inline">• ${item.observacoes}</span>` : ''}
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5 shrink-0">
+              <span class="font-extrabold text-xs sm:text-sm font-mono-num ${isDespesa ? 'text-rose-400' : 'text-emerald-400'}">
+                ${isDespesa ? '-' : '+'} R$ ${valorFormatado}
+              </span>
+              <!-- Botão Editar / Corrigir -->
+              <button type="button" onclick="abrirEdicaoLancamento('${item.id}')" title="Corrigir categoria / dados"
+                class="px-2.5 py-1.5 rounded-xl ${isNecessitaCorrecao ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700'} text-xs transition-all flex items-center gap-1 shadow-sm active:scale-95">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span class="text-[11px] font-bold hidden sm:inline">Corrigir</span>
+              </button>
+              <!-- Botão Excluir -->
+              <button type="button" onclick="excluirLancamento('${item.id}')" title="Remover da lista"
+                class="p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-500 hover:text-rose-400 text-xs transition-all active:scale-95">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function atualizarResumoFinanceiro() {
+      const lista = obterHistorico();
+      let despesas = 0;
+      let receitas = 0;
+      let guardado = 0;
+
+      lista.forEach(item => {
+        const val = Number(item.valor) || 0;
+        if (item.categoria === "Dinheiro Guardado") {
+          guardado += val;
+        } else if (item.tipo === "Receita") {
+          receitas += val;
+        } else {
+          despesas += val;
+        }
+      });
+
+      const saldo = receitas - despesas;
+
+      document.getElementById("cardDespesasValor").innerText = `R$ ${despesas.toFixed(2).replace('.', ',')}`;
+      document.getElementById("cardReceitasValor").innerText = `R$ ${receitas.toFixed(2).replace('.', ',')}`;
+      document.getElementById("cardGuardadoValor").innerText = `R$ ${guardado.toFixed(2).replace('.', ',')}`;
+
+      const cardSaldo = document.getElementById("cardSaldoValor");
+      cardSaldo.innerText = `R$ ${saldo.toFixed(2).replace('.', ',')}`;
+      if (saldo >= 0) {
+        cardSaldo.className = "text-xl sm:text-2xl font-black text-white font-mono-num";
+      } else {
+        cardSaldo.className = "text-xl sm:text-2xl font-black text-rose-400 font-mono-num";
+      }
+    }
+
+    function abrirEdicaoLancamento(id) {
+      const lista = obterHistorico();
+      const item = lista.find(l => l.id === id);
+      if (!item) return;
+
+      document.getElementById("editId").value = item.id;
+      document.getElementById("editDescricao").value = item.descricao || "";
+      document.getElementById("editValor").value = item.valor || "";
+      document.getElementById("editTipo").value = item.tipo || "Despesa";
+      document.getElementById("editPagamento").value = item.pagamento || "Pix";
+      document.getElementById("editData").value = item.data || "";
+
+      editCategoriaSelecionada = item.categoria || "Compras";
+      renderizarGridEdicaoCategorias();
+
+      document.getElementById("modalEdicaoLancamento").classList.remove("hidden");
+    }
+
+    function renderizarGridEdicaoCategorias() {
+      const grid = document.getElementById("editCategoriasGrid");
+      const badge = document.getElementById("editCategoriaBadge");
+      if (!grid) return;
+
+      if (badge) badge.innerText = editCategoriaSelecionada;
+
+      grid.innerHTML = CATEGORIAS.map(cat => `
+        <button type="button" onclick="setEditCategoria('${cat.id}')"
+          class="flex items-center gap-1.5 p-2 rounded-xl border transition-all text-left ${
+            editCategoriaSelecionada === cat.id
+              ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 font-bold shadow-sm'
+              : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+          }">
+          <i class="fa-solid ${cat.icon} text-xs"></i>
+          <span class="truncate text-[11px] font-semibold">${cat.id}</span>
+        </button>
+      `).join('');
+    }
+
+    function setEditCategoria(cat) {
+      editCategoriaSelecionada = cat;
+      renderizarGridEdicaoCategorias();
+    }
+
+    function fecharModalEdicao() {
+      document.getElementById("modalEdicaoLancamento").classList.add("hidden");
+    }
+
+    async function salvarEdicaoLancamento() {
+      const id = document.getElementById("editId").value;
+      const desc = document.getElementById("editDescricao").value.trim();
+      const valor = parseFloat(document.getElementById("editValor").value) || 0;
+      const tipo = document.getElementById("editTipo").value;
+      const pag = document.getElementById("editPagamento").value;
+      const data = document.getElementById("editData").value;
+
+      const lista = obterHistorico();
+      const index = lista.findIndex(l => l.id === id);
+      if (index === -1) return;
+
+      const itemAntigo = { ...lista[index] };
+      const itemNovo = {
+        ...lista[index],
+        descricao: desc || itemAntigo.descricao,
+        categoria: editCategoriaSelecionada,
+        valor: valor,
+        tipo: tipo,
+        pagamento: pag,
+        data: data || itemAntigo.data,
+        observacoes: "Corrigido no FinFlow"
+      };
+
+      lista[index] = itemNovo;
+      salvarHistorico(lista);
+      fecharModalEdicao();
+
+      const statusContainer = document.getElementById("statusContainer");
+      const statusTexto = document.getElementById("statusTexto");
+      statusContainer.className = "p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-300 flex items-center gap-3";
+      statusTexto.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Sucesso! Categoria de "${itemNovo.descricao}" corrigida para "${itemNovo.categoria}".`;
+
+      // Envia notificação de correção para o Google Apps Script
+      try {
+        await fetch(WEBAPP_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "corrigir",
+            descricaoOriginal: itemAntigo.descricao,
+            categoriaOriginal: itemAntigo.categoria,
+            ...itemNovo
+          })
+        });
+      } catch(e) {
+        console.warn("Erro ao enviar sincronização de correção:", e);
+      }
+    }
+
+    function excluirLancamentoAtual() {
+      const id = document.getElementById("editId").value;
+      if (confirm("Deseja realmente excluir este lançamento do histórico?")) {
+        excluirLancamento(id);
+        fecharModalEdicao();
+      }
+    }
+
+    function excluirLancamento(id) {
+      const lista = obterHistorico().filter(l => l.id !== id);
+      salvarHistorico(lista);
+    }
+
+    function limparHistorico() {
+      if (confirm("Deseja limpar todos os lançamentos do histórico recente deste dispositivo?")) {
+        localStorage.removeItem(STORAGE_KEY_HISTORICO);
+        renderizarUltimosLancamentos();
+        atualizarResumoFinanceiro();
+      }
+    }
+
     // --- CONTROLE DE ACESSO E VISUALIZAÇÃO DA PLANILHA ---
     const STORAGE_KEY_PIN = "FINFLOW_PLANILHA_PIN";
     const STORAGE_KEY_URL = "FINFLOW_PLANILHA_URL";
     window.PLANILHA_DESBLOQUEADA = false;
-    let modoAutenticacao = "entrar"; // "entrar", "criar", "alterar_atual"
+    let modoAutenticacao = "entrar";
 
     function normalizarUrlPlanilha(url) {
       if (!url) return "";
       let u = url.trim();
       if (u.includes("docs.google.com/spreadsheets")) {
+        if (u.includes("/pubhtml")) {
+          return u;
+        }
         if (u.includes("/edit")) {
           u = u.replace(/\/edit(\?[^#]*)?/, "/edit?rm=minimal&");
-        } else if (!u.includes("/pubhtml") && !u.includes("/preview")) {
+        } else if (!u.includes("/preview")) {
           u = u.replace(/\/$/, "") + "/preview";
         }
       }
@@ -868,8 +1290,11 @@
         const iframe = document.getElementById("iframePlanilha");
         const loader = document.getElementById("iframeLoader");
         const linkExt = document.getElementById("btnLinkExternoPlanilha");
+        const btnTopo = document.getElementById("btnAbrirAppTopo");
 
         linkExt.href = urlSalva;
+        if (btnTopo) btnTopo.href = urlSalva;
+
         const embedUrl = normalizarUrlPlanilha(urlSalva);
         if (iframe.src !== embedUrl) {
           loader.classList.remove("hidden");
@@ -966,6 +1391,22 @@
       exibirVisualizadorOuConfig();
     }
 
+    // Navegação Rápida (Bottom Nav)
+    function irParaAba(aba) {
+      if (aba === 'inicio') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (aba === 'historico') {
+        document.getElementById('secaoHistorico').scrollIntoView({ behavior: 'smooth' });
+      } else if (aba === 'resumo') {
+        document.getElementById('secaoResumo').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function focarNoValor() {
+      irParaAba('inicio');
+      setTimeout(() => document.getElementById('valor').focus(), 300);
+    }
+
     document.getElementById("inputSenhaPlanilha").addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -989,233 +1430,10 @@
       }
     });
 
-    // --- GERENCIAMENTO DE HISTÓRICO E EDIÇÃO/CORREÇÃO DE LANÇAMENTOS ---
-    const STORAGE_KEY_HISTORICO = "FINFLOW_HISTORICO";
-    let editCategoriaSelecionada = "Compras";
-
-    function obterHistorico() {
-      const salvo = localStorage.getItem(STORAGE_KEY_HISTORICO);
-      if (salvo) {
-        try {
-          const parsed = JSON.parse(salvo);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-        } catch(e) {}
-      }
-      // Inicializa com o lançamento do Teclado citado pelo usuário para ele poder corrigir imediatamente
-      const inicial = [
-        {
-          id: "lancamento-teclado-ontem",
-          data: "Ontem",
-          descricao: "Teclado",
-          categoria: "Alimentação",
-          valor: 0,
-          tipo: "Despesa",
-          pagamento: "Pix",
-          observacoes: "Toque em Corrigir para mudar para Compras"
-        }
-      ];
-      localStorage.setItem(STORAGE_KEY_HISTORICO, JSON.stringify(inicial));
-      return inicial;
-    }
-
-    function salvarHistorico(lista) {
-      localStorage.setItem(STORAGE_KEY_HISTORICO, JSON.stringify(lista));
-      renderizarUltimosLancamentos();
-    }
-
-    function adicionarLancamentoAoHistorico(item) {
-      const lista = obterHistorico();
-      lista.unshift(item);
-      if (lista.length > 30) lista.pop();
-      salvarHistorico(lista);
-    }
-
-    function renderizarUltimosLancamentos() {
-      const container = document.getElementById("listaUltimosLancamentos");
-      const badgeContador = document.getElementById("contadorLancamentos");
-      if (!container) return;
-
-      const lista = obterHistorico();
-      if (badgeContador) badgeContador.innerText = lista.length;
-
-      if (lista.length === 0) {
-        container.innerHTML = `
-          <div class="py-6 text-center text-slate-500 text-xs">
-            Nenhum lançamento no histórico recente.
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = lista.map(item => {
-        const catInfo = CATEGORIAS.find(c => c.id === item.categoria) || { icon: "fa-tag" };
-        const isDespesa = (item.tipo || "Despesa") === "Despesa";
-        const valorFormatado = item.valor ? Number(item.valor).toFixed(2).replace('.', ',') : '0,00';
-        const isNecessitaCorrecao = item.id === "lancamento-teclado-ontem" && item.categoria === "Alimentação";
-
-        return `
-          <div class="p-3 bg-slate-950/70 hover:bg-slate-950 border ${isNecessitaCorrecao ? 'border-amber-500/40 bg-amber-500/5' : 'border-slate-800/80'} rounded-xl flex items-center justify-between gap-3 transition-all">
-            <div class="flex items-center gap-3 min-w-0">
-              <div class="w-9 h-9 rounded-lg ${isDespesa ? 'bg-rose-500/15 text-rose-400 border border-rose-500/20' : 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'} flex items-center justify-center shrink-0 text-sm">
-                <i class="fa-solid ${catInfo.icon}"></i>
-              </div>
-              <div class="min-w-0">
-                <div class="flex items-center gap-2">
-                  <h4 class="text-xs sm:text-sm font-bold text-white truncate">${item.descricao || 'Sem descrição'}</h4>
-                  <span class="text-[10px] px-1.5 py-0.5 rounded font-medium ${isNecessitaCorrecao ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse' : 'bg-slate-800 text-slate-300 border border-slate-700/50'} shrink-0">
-                    ${item.categoria}
-                  </span>
-                </div>
-                <div class="flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
-                  <span>${item.data || 'Hoje'}</span>
-                  <span>•</span>
-                  <span>${item.pagamento || 'Pix'}</span>
-                  ${item.observacoes ? `<span class="hidden sm:inline">• ${item.observacoes}</span>` : ''}
-                </div>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-2 shrink-0">
-              <span class="font-bold text-xs sm:text-sm font-mono ${isDespesa ? 'text-rose-400' : 'text-emerald-400'}">
-                ${isDespesa ? '-' : '+'} R$ ${valorFormatado}
-              </span>
-              <!-- Botão Editar / Corrigir -->
-              <button type="button" onclick="abrirEdicaoLancamento('${item.id}')" title="Corrigir categoria / dados"
-                class="p-2 rounded-lg ${isNecessitaCorrecao ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white'} text-xs transition-all flex items-center gap-1 shadow-sm">
-                <i class="fa-solid fa-pen-to-square"></i>
-                <span class="text-[10px] hidden sm:inline">Corrigir</span>
-              </button>
-              <!-- Botão Excluir -->
-              <button type="button" onclick="excluirLancamento('${item.id}')" title="Remover da lista"
-                class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-500 hover:text-rose-400 text-xs transition-all">
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function abrirEdicaoLancamento(id) {
-      const lista = obterHistorico();
-      const item = lista.find(l => l.id === id);
-      if (!item) return;
-
-      document.getElementById("editId").value = item.id;
-      document.getElementById("editDescricao").value = item.descricao || "";
-      document.getElementById("editValor").value = item.valor || "";
-      document.getElementById("editTipo").value = item.tipo || "Despesa";
-      document.getElementById("editPagamento").value = item.pagamento || "Pix";
-      document.getElementById("editData").value = item.data || "";
-
-      editCategoriaSelecionada = item.categoria || "Compras";
-      renderizarGridEdicaoCategorias();
-
-      document.getElementById("modalEdicaoLancamento").classList.remove("hidden");
-    }
-
-    function renderizarGridEdicaoCategorias() {
-      const grid = document.getElementById("editCategoriasGrid");
-      const badge = document.getElementById("editCategoriaBadge");
-      if (!grid) return;
-
-      if (badge) badge.innerText = editCategoriaSelecionada;
-
-      grid.innerHTML = CATEGORIAS.map(cat => `
-        <button type="button" onclick="setEditCategoria('${cat.id}')"
-          class="flex items-center gap-1.5 p-2 rounded-xl border transition-all text-left ${
-            editCategoriaSelecionada === cat.id
-              ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 font-bold shadow-sm'
-              : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
-          }">
-          <i class="fa-solid ${cat.icon} text-xs"></i>
-          <span class="truncate text-[11px]">${cat.id}</span>
-        </button>
-      `).join('');
-    }
-
-    function setEditCategoria(cat) {
-      editCategoriaSelecionada = cat;
-      renderizarGridEdicaoCategorias();
-    }
-
-    function fecharModalEdicao() {
-      document.getElementById("modalEdicaoLancamento").classList.add("hidden");
-    }
-
-    async function salvarEdicaoLancamento() {
-      const id = document.getElementById("editId").value;
-      const desc = document.getElementById("editDescricao").value.trim();
-      const valor = parseFloat(document.getElementById("editValor").value) || 0;
-      const tipo = document.getElementById("editTipo").value;
-      const pag = document.getElementById("editPagamento").value;
-      const data = document.getElementById("editData").value;
-
-      const lista = obterHistorico();
-      const index = lista.findIndex(l => l.id === id);
-      if (index === -1) return;
-
-      const itemAntigo = { ...lista[index] };
-      const itemNovo = {
-        ...lista[index],
-        descricao: desc || itemAntigo.descricao,
-        categoria: editCategoriaSelecionada,
-        valor: valor,
-        tipo: tipo,
-        pagamento: pag,
-        data: data || itemAntigo.data,
-        observacoes: "Corrigido no FinFlow"
-      };
-
-      lista[index] = itemNovo;
-      salvarHistorico(lista);
-      fecharModalEdicao();
-
-      const statusContainer = document.getElementById("statusContainer");
-      const statusTexto = document.getElementById("statusTexto");
-      statusContainer.className = "p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-300 flex items-center gap-3";
-      statusTexto.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Sucesso! Categoria de "${itemNovo.descricao}" corrigida para "${itemNovo.categoria}".`;
-
-      // Envia notificação de correção para o Google Apps Script
-      try {
-        await fetch(WEBAPP_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "corrigir",
-            descricaoOriginal: itemAntigo.descricao,
-            categoriaOriginal: itemAntigo.categoria,
-            ...itemNovo
-          })
-        });
-      } catch(e) {
-        console.warn("Erro ao enviar sincronização de correção:", e);
-      }
-    }
-
-    function excluirLancamentoAtual() {
-      const id = document.getElementById("editId").value;
-      if (confirm("Deseja realmente excluir este lançamento do histórico?")) {
-        excluirLancamento(id);
-        fecharModalEdicao();
-      }
-    }
-
-    function excluirLancamento(id) {
-      const lista = obterHistorico().filter(l => l.id !== id);
-      salvarHistorico(lista);
-    }
-
-    function limparHistorico() {
-      if (confirm("Deseja limpar todos os lançamentos do histórico recente deste dispositivo?")) {
-        localStorage.removeItem(STORAGE_KEY_HISTORICO);
-        renderizarUltimosLancamentos();
-      }
-    }
-
+    // Inicialização
     renderCategorias();
     renderizarUltimosLancamentos();
+    atualizarResumoFinanceiro();
     verificarVersao();
   </script>
 </body>
