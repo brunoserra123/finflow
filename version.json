@@ -1,4 +1,4 @@
 {
-  "version": "2.0.0",
-  "notes": "Redesign Fintech Premium: visual nobre estilo Nubank/Revolut com cards de resumo, navegação inferior no celular e estética de banco digital"
+  "version": "2.1.0",
+  "notes": "Data formatada com número e nome do mês por extenso (ex: 13/10/2026 (Outubro)) e planilha vinculada"
 }

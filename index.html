@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>FinFlow 2.0 - Gestão Financeira Inteligente</title>
+  <title>FinFlow 2.1 - Gestão Financeira Inteligente</title>
   
   <!-- Ícone de Aplicação e Favicon Embutido -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230b0f17'/%3E%3Cstop offset='100%25' stop-color='%23064e3b'/%3E%3C/linearGradient%3E%3ClinearGradient id='em' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2334d399'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bg)'/%3E%3Crect width='506' height='506' x='3' y='3' rx='112' fill='none' stroke='%2334d399' stroke-opacity='0.3' stroke-width='6'/%3E%3Crect x='106' y='160' width='300' height='205' rx='34' fill='url(%23em)'/%3E%3Cpath d='M106 195 C106 170, 126 160, 150 160 L362 160 C386 160, 406 170, 406 195 L406 222 C370 222, 320 232, 256 232 C192 232, 142 222, 106 222 Z' fill='%2310b981'/%3E%3Crect x='286' y='225' width='124' height='68' rx='18' fill='%23064e3b' stroke='%2334d399' stroke-width='3'/%3E%3Ccircle cx='348' cy='259' r='14' fill='%2334d399'/%3E%3Ccircle cx='348' cy='259' r='6' fill='%23064e3b'/%3E%3Cpath d='M150 305 L195 260 L230 280 L280 230' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='260,230 280,230 280,250' fill='none' stroke='%23ecfdf5' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
@@ -102,7 +102,7 @@
         <div>
           <div class="flex items-center gap-2">
             <h1 class="font-extrabold text-xl sm:text-2xl text-white tracking-tight">FinFlow</h1>
-            <span id="badgeVersaoAtual" class="text-[10px] text-emerald-400 font-mono-num bg-emerald-500/15 px-2 py-0.5 rounded-full border border-emerald-500/30 font-semibold">v2.0.0</span>
+            <span id="badgeVersaoAtual" class="text-[10px] text-emerald-400 font-mono-num bg-emerald-500/15 px-2 py-0.5 rounded-full border border-emerald-500/30 font-semibold">v2.1.0</span>
           </div>
           <p class="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -608,9 +608,27 @@
 
   <script>
     // Versão gravada neste arquivo
-    const VERSAO_BUILD = "2.0.0";
+    const VERSAO_BUILD = "2.1.0";
     const GITHUB_API_URL = "https://api.github.com/repos/brunoserra123/finflow/commits/main";
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyss9qOeU3riaOeYpkkA7sa4IOvjXo9mB8xJ6EenjTUvf-YpiHt_o-3HBJ1pnTLfQg/exec";
+    const URL_PADRAO_PLANILHA = "https://docs.google.com/spreadsheets/d/109yp0QHe1ODOD4NUTYKigmNuFaD_WSCP78jk3jPWPQk/edit?usp=sharing";
+
+    // Formata a data com o número e o nome do mês por extenso (ambas as maneiras)
+    // Exemplo de saída: "13/10/2026 (Outubro), 01:15:20"
+    function gerarDataFormatada(d = new Date()) {
+      const meses = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+      ];
+      const dia = String(d.getDate()).padStart(2, '0');
+      const mesNum = String(d.getMonth() + 1).padStart(2, '0');
+      const mesNome = meses[d.getMonth()];
+      const ano = d.getFullYear();
+      const hora = String(d.getHours()).padStart(2, '0');
+      const min = String(d.getMinutes()).padStart(2, '0');
+      const seg = String(d.getSeconds()).padStart(2, '0');
+      return `${dia}/${mesNum}/${ano} (${mesNome}), ${hora}:${min}:${seg}`;
+    }
 
     document.getElementById("badgeVersaoAtual").innerText = `v${VERSAO_BUILD}`;
 
@@ -881,7 +899,7 @@
       statusTexto.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> A registar na folha de cálculo...`;
 
       const payload = {
-        data: new Date().toLocaleString("pt-BR"),
+        data: gerarDataFormatada(),
         valor: valorNum,
         descricao: descInput.value.trim() || categoriaSelecionada,
         categoria: categoriaSelecionada,
@@ -940,17 +958,17 @@
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         } catch(e) {}
       }
-      // Inicializa com o item Teclado citado para que o usuário possa testar corrigir na hora
+      // Inicializa com o item real Teclado já com a data no novo formato e categoria Compras
       const inicial = [
         {
           id: "lancamento-teclado-ontem",
-          data: "Ontem",
+          data: "12/10/2026 (Outubro), 21:46:31",
           descricao: "Teclado",
-          categoria: "Alimentação",
-          valor: 150.00,
+          categoria: "Compras",
+          valor: 208.00,
           tipo: "Despesa",
           pagamento: "Pix",
-          observacoes: "Toque em Corrigir para mudar para Compras"
+          observacoes: "Teclado corrigido para Compras"
         }
       ];
       localStorage.setItem(STORAGE_KEY_HISTORICO, JSON.stringify(inicial));
@@ -1282,7 +1300,7 @@
     }
 
     function exibirVisualizadorOuConfig() {
-      const urlSalva = localStorage.getItem(STORAGE_KEY_URL);
+      const urlSalva = localStorage.getItem(STORAGE_KEY_URL) || URL_PADRAO_PLANILHA;
       if (!urlSalva) {
         abrirConfigUrlPlanilha();
       } else {
@@ -1375,7 +1393,7 @@
     function abrirConfigUrlPlanilha() {
       mostrarCard("cardConfigUrlPlanilha");
       const input = document.getElementById("inputUrlPlanilha");
-      input.value = localStorage.getItem(STORAGE_KEY_URL) || "";
+      input.value = localStorage.getItem(STORAGE_KEY_URL) || URL_PADRAO_PLANILHA;
       setTimeout(() => input.focus(), 150);
     }
 
