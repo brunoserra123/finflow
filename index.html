@@ -58,6 +58,11 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
+        <button type="button" onclick="abrirModalPlanilha()" title="Acessar Planilha Protegida" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition-all shadow-sm">
+          <i class="fa-solid fa-table-cells"></i>
+          <span>Planilha</span>
+          <i class="fa-solid fa-lock text-[10px] text-emerald-400/70"></i>
+        </button>
         <button onclick="verificarAtualizacaoManual()" title="Verificar agora" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-all text-xs">
           <i id="syncIcon" class="fa-solid fa-rotate"></i>
         </button>
@@ -162,9 +167,152 @@
     </div>
   </div>
 
+  <!-- Modal de Acesso à Planilha (Protegido por Senha) -->
+  <div id="modalPlanilha" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md transition-all">
+    
+    <!-- 1. Card de Autenticação / Senha -->
+    <div id="cardAuthPlanilha" class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 relative space-y-5">
+      <button type="button" onclick="fecharModalPlanilha()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl border border-emerald-500/30">
+          <i id="iconeStatusCadeado" class="fa-solid fa-lock"></i>
+        </div>
+        <div>
+          <h2 id="authTitulo" class="font-bold text-white text-base">Acesso à Planilha</h2>
+          <p id="authSubtitulo" class="text-xs text-slate-400">Protegido por senha</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label id="labelSenhaPlanilha" class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Digite a sua senha</label>
+          <div class="relative">
+            <input type="password" id="inputSenhaPlanilha" placeholder="••••••••" autocomplete="off"
+              class="w-full pl-4 pr-11 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-center font-mono tracking-widest text-lg" />
+            <button type="button" onclick="toggleVisibilidadeSenha()" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-sm">
+              <i id="iconeOlhoSenha" class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="authErroMsg" class="hidden text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 p-2.5 rounded-xl flex items-center gap-2">
+          <i class="fa-solid fa-circle-exclamation shrink-0"></i>
+          <span id="authErroTexto">Senha incorreta.</span>
+        </div>
+
+        <button type="button" onclick="validarOuDefinirSenha()" id="btnConfirmarAuth"
+          class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all cursor-pointer">
+          <i id="btnAuthIcone" class="fa-solid fa-key"></i>
+          <span id="btnAuthTexto">Acessar Planilha</span>
+        </button>
+
+        <div class="flex items-center justify-between pt-1 text-[11px] text-slate-400">
+          <button type="button" onclick="iniciarAlteracaoSenha()" id="btnOpcaoAlterarSenha" class="hover:text-emerald-400 transition-colors">
+            Alterar senha
+          </button>
+          <span class="text-slate-700">•</span>
+          <button type="button" onclick="redefinirAcessoPlanilha()" class="hover:text-rose-400 transition-colors">
+            Redefinir tudo
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Card de Configuração da URL da Planilha -->
+    <div id="cardConfigUrlPlanilha" class="hidden w-full max-w-lg bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 relative space-y-5">
+      <button type="button" onclick="fecharModalPlanilha()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1 rounded-lg">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl border border-emerald-500/30">
+          <i class="fa-solid fa-table"></i>
+        </div>
+        <div>
+          <h2 class="font-bold text-white text-base">Configurar Link da Planilha</h2>
+          <p class="text-xs text-slate-400">Cole a URL do Google Planilhas</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1.5 font-semibold">Link da Planilha (Google Sheets)</label>
+          <input type="text" id="inputUrlPlanilha" placeholder="https://docs.google.com/spreadsheets/d/..." 
+            class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 text-xs font-mono" />
+          <p class="text-[11px] text-slate-500 mt-2">
+            💡 <strong>Dica:</strong> Abra sua planilha no Google Sheets, copie o link do navegador e cole aqui. Ela será exibida de forma segura dentro do FinFlow.
+          </p>
+        </div>
+
+        <button type="button" onclick="salvarUrlPlanilha()"
+          class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all cursor-pointer">
+          <i class="fa-solid fa-check"></i>
+          <span>Salvar e Abrir Planilha</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Visualizador da Planilha em Tela Ampla -->
+    <div id="cardVisualizadorPlanilha" class="hidden w-full h-[92vh] max-w-6xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+      <!-- Barra Superior do Visualizador -->
+      <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950 shrink-0 gap-2">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm border border-emerald-500/30 shrink-0">
+            <i class="fa-solid fa-table-cells"></i>
+          </div>
+          <div class="min-w-0">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2 truncate">
+              Planilha de Finanças
+              <span class="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 shrink-0">Protegido</span>
+            </h3>
+            <p class="text-[11px] text-slate-400 truncate">Exibição direta dentro do FinFlow</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <!-- Abrir em Nova Aba -->
+          <a id="btnLinkExternoPlanilha" href="#" target="_blank" rel="noopener noreferrer" title="Abrir em nova aba no Google Sheets"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 hover:text-white transition-all">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
+            <span class="hidden sm:inline">Nova Aba</span>
+          </a>
+
+          <!-- Alterar Link -->
+          <button type="button" onclick="abrirConfigUrlPlanilha()" title="Alterar URL da planilha"
+            class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition-all text-xs">
+            <i class="fa-solid fa-gear"></i>
+          </button>
+
+          <!-- Bloquear e Fechar -->
+          <button type="button" onclick="bloquearEFecharModalPlanilha()" title="Bloquear e fechar"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-400 text-xs font-semibold transition-all">
+            <i class="fa-solid fa-lock"></i>
+            <span>Bloquear</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Iframe e Loader -->
+      <div class="relative flex-1 w-full bg-slate-950">
+        <div id="iframeLoader" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-slate-400 gap-3 z-10">
+          <i class="fa-solid fa-spinner fa-spin text-2xl text-emerald-400"></i>
+          <span class="text-xs">Carregando planilha do Google...</span>
+        </div>
+        <iframe id="iframePlanilha" class="w-full h-full border-0" 
+          allow="clipboard-read; clipboard-write; autoplay"
+          onload="document.getElementById('iframeLoader').classList.add('hidden')">
+        </iframe>
+      </div>
+    </div>
+
+  </div>
+
   <script>
     // Versão gravada neste arquivo
-    const VERSAO_BUILD = "1.0.1";
+    const VERSAO_BUILD = "1.1.0";
     const GITHUB_API_URL = "https://api.github.com/repos/brunoserra123/finflow/commits/main";
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyss9qOeU3riaOeYpkkA7sa4IOvjXo9mB8xJ6EenjTUvf-YpiHt_o-3HBJ1pnTLfQg/exec";
 
@@ -461,6 +609,227 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && (document.activeElement.id === "valor" || document.activeElement.id === "descricao")) {
         enviarRegistro();
+      }
+    });
+
+    // --- CONTROLE DE ACESSO E VISUALIZAÇÃO DA PLANILHA ---
+    const STORAGE_KEY_PIN = "FINFLOW_PLANILHA_PIN";
+    const STORAGE_KEY_URL = "FINFLOW_PLANILHA_URL";
+    window.PLANILHA_DESBLOQUEADA = false;
+    let modoAutenticacao = "entrar"; // "entrar", "criar", "alterar_atual"
+
+    function normalizarUrlPlanilha(url) {
+      if (!url) return "";
+      let u = url.trim();
+      if (u.includes("docs.google.com/spreadsheets")) {
+        if (u.includes("/edit")) {
+          u = u.replace(/\/edit(\?[^#]*)?/, "/edit?rm=minimal&");
+        } else if (!u.includes("/pubhtml") && !u.includes("/preview")) {
+          u = u.replace(/\/$/, "") + "/preview";
+        }
+      }
+      return u;
+    }
+
+    function abrirModalPlanilha() {
+      const modal = document.getElementById("modalPlanilha");
+      modal.classList.remove("hidden");
+
+      if (window.PLANILHA_DESBLOQUEADA) {
+        exibirVisualizadorOuConfig();
+        return;
+      }
+
+      const pinSalvo = localStorage.getItem(STORAGE_KEY_PIN);
+      const inputSenha = document.getElementById("inputSenhaPlanilha");
+      const erroBox = document.getElementById("authErroMsg");
+      inputSenha.value = "";
+      erroBox.classList.add("hidden");
+
+      if (!pinSalvo) {
+        modoAutenticacao = "criar";
+        document.getElementById("authTitulo").innerText = "Definir Senha de Acesso";
+        document.getElementById("authSubtitulo").innerText = "Crie uma senha para proteger sua planilha";
+        document.getElementById("labelSenhaPlanilha").innerText = "Nova senha (PIN)";
+        document.getElementById("btnAuthTexto").innerText = "Salvar Senha e Prosseguir";
+        document.getElementById("btnAuthIcone").className = "fa-solid fa-lock-open";
+        document.getElementById("iconeStatusCadeado").className = "fa-solid fa-shield-halved";
+        document.getElementById("btnOpcaoAlterarSenha").classList.add("hidden");
+      } else {
+        modoAutenticacao = "entrar";
+        document.getElementById("authTitulo").innerText = "Acesso à Planilha";
+        document.getElementById("authSubtitulo").innerText = "Digite sua senha para desbloquear";
+        document.getElementById("labelSenhaPlanilha").innerText = "Digite a sua senha";
+        document.getElementById("btnAuthTexto").innerText = "Acessar Planilha";
+        document.getElementById("btnAuthIcone").className = "fa-solid fa-key";
+        document.getElementById("iconeStatusCadeado").className = "fa-solid fa-lock";
+        document.getElementById("btnOpcaoAlterarSenha").classList.remove("hidden");
+      }
+
+      mostrarCard("cardAuthPlanilha");
+      setTimeout(() => inputSenha.focus(), 150);
+    }
+
+    function fecharModalPlanilha() {
+      document.getElementById("modalPlanilha").classList.add("hidden");
+    }
+
+    function bloquearEFecharModalPlanilha() {
+      window.PLANILHA_DESBLOQUEADA = false;
+      const iframe = document.getElementById("iframePlanilha");
+      if (iframe) iframe.src = "about:blank";
+      fecharModalPlanilha();
+    }
+
+    function mostrarCard(idCard) {
+      ["cardAuthPlanilha", "cardConfigUrlPlanilha", "cardVisualizadorPlanilha"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          if (id === idCard) el.classList.remove("hidden");
+          else el.classList.add("hidden");
+        }
+      });
+    }
+
+    function toggleVisibilidadeSenha() {
+      const input = document.getElementById("inputSenhaPlanilha");
+      const icone = document.getElementById("iconeOlhoSenha");
+      if (input.type === "password") {
+        input.type = "text";
+        icone.className = "fa-solid fa-eye-slash";
+      } else {
+        input.type = "password";
+        icone.className = "fa-solid fa-eye";
+      }
+    }
+
+    function exibirVisualizadorOuConfig() {
+      const urlSalva = localStorage.getItem(STORAGE_KEY_URL);
+      if (!urlSalva) {
+        abrirConfigUrlPlanilha();
+      } else {
+        mostrarCard("cardVisualizadorPlanilha");
+        const iframe = document.getElementById("iframePlanilha");
+        const loader = document.getElementById("iframeLoader");
+        const linkExt = document.getElementById("btnLinkExternoPlanilha");
+
+        linkExt.href = urlSalva;
+        const embedUrl = normalizarUrlPlanilha(urlSalva);
+        if (iframe.src !== embedUrl) {
+          loader.classList.remove("hidden");
+          iframe.src = embedUrl;
+        }
+      }
+    }
+
+    function validarOuDefinirSenha() {
+      const inputSenha = document.getElementById("inputSenhaPlanilha");
+      const erroBox = document.getElementById("authErroMsg");
+      const erroTexto = document.getElementById("authErroTexto");
+      const valor = (inputSenha.value || "").trim();
+
+      erroBox.classList.add("hidden");
+
+      if (modoAutenticacao === "criar") {
+        if (valor.length < 3) {
+          erroTexto.innerText = "A senha deve ter pelo menos 3 dígitos/caracteres.";
+          erroBox.classList.remove("hidden");
+          inputSenha.focus();
+          return;
+        }
+        localStorage.setItem(STORAGE_KEY_PIN, valor);
+        window.PLANILHA_DESBLOQUEADA = true;
+        exibirVisualizadorOuConfig();
+      } else if (modoAutenticacao === "alterar_atual") {
+        const pinSalvo = localStorage.getItem(STORAGE_KEY_PIN);
+        if (valor === pinSalvo) {
+          modoAutenticacao = "criar";
+          inputSenha.value = "";
+          document.getElementById("authTitulo").innerText = "Nova Senha";
+          document.getElementById("authSubtitulo").innerText = "Defina a sua nova senha de acesso";
+          document.getElementById("labelSenhaPlanilha").innerText = "Digite a nova senha";
+          document.getElementById("btnAuthTexto").innerText = "Confirmar Nova Senha";
+          document.getElementById("btnAuthIcone").className = "fa-solid fa-check";
+          inputSenha.focus();
+        } else {
+          erroTexto.innerText = "Senha atual incorreta.";
+          erroBox.classList.remove("hidden");
+          inputSenha.select();
+        }
+      } else {
+        const pinSalvo = localStorage.getItem(STORAGE_KEY_PIN);
+        if (valor === pinSalvo) {
+          window.PLANILHA_DESBLOQUEADA = true;
+          exibirVisualizadorOuConfig();
+        } else {
+          erroTexto.innerText = "Senha incorreta. Tente novamente.";
+          erroBox.classList.remove("hidden");
+          inputSenha.select();
+        }
+      }
+    }
+
+    function iniciarAlteracaoSenha() {
+      modoAutenticacao = "alterar_atual";
+      const inputSenha = document.getElementById("inputSenhaPlanilha");
+      inputSenha.value = "";
+      document.getElementById("authTitulo").innerText = "Alterar Senha";
+      document.getElementById("authSubtitulo").innerText = "Digite sua senha ATUAL para continuar";
+      document.getElementById("labelSenhaPlanilha").innerText = "Senha atual";
+      document.getElementById("btnAuthTexto").innerText = "Verificar Senha";
+      document.getElementById("btnAuthIcone").className = "fa-solid fa-arrow-right";
+      document.getElementById("authErroMsg").classList.add("hidden");
+      inputSenha.focus();
+    }
+
+    function redefinirAcessoPlanilha() {
+      if (confirm("Deseja realmente redefinir a senha e configurações de acesso à planilha deste navegador?")) {
+        localStorage.removeItem(STORAGE_KEY_PIN);
+        localStorage.removeItem(STORAGE_KEY_URL);
+        window.PLANILHA_DESBLOQUEADA = false;
+        abrirModalPlanilha();
+      }
+    }
+
+    function abrirConfigUrlPlanilha() {
+      mostrarCard("cardConfigUrlPlanilha");
+      const input = document.getElementById("inputUrlPlanilha");
+      input.value = localStorage.getItem(STORAGE_KEY_URL) || "";
+      setTimeout(() => input.focus(), 150);
+    }
+
+    function salvarUrlPlanilha() {
+      const input = document.getElementById("inputUrlPlanilha");
+      const url = (input.value || "").trim();
+      if (!url.startsWith("http")) {
+        alert("Por favor, cole um link válido da planilha começando com https://");
+        input.focus();
+        return;
+      }
+      localStorage.setItem(STORAGE_KEY_URL, url);
+      exibirVisualizadorOuConfig();
+    }
+
+    document.getElementById("inputSenhaPlanilha").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        validarOuDefinirSenha();
+      }
+    });
+
+    document.getElementById("inputUrlPlanilha").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        salvarUrlPlanilha();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        const modal = document.getElementById("modalPlanilha");
+        if (modal && !modal.classList.contains("hidden")) {
+          bloquearEFecharModalPlanilha();
+        }
       }
     });
 
